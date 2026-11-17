@@ -1,0 +1,638 @@
+{
+  "course_url": "https://awsacademy.instructure.com/courses/186336",
+  "course_title_as_shown": "AWS Academy Cloud Foundations [186336]",
+  "course_code_as_shown": "ACFv2EN-LTI13-186336",
+  "warning": "The course at this URL is titled 'AWS Academy Cloud Foundations' (modules 1-10 plus Course Assessment), not 'Cloud Developing' (modules 2-13). All 17 module groups are listed in order.",
+  "source": "Canvas modules API (read-only GET /api/v1/courses/186336/modules?include[]=items) from the signed-in browser session",
+  "downloads": "No File-type items exist in the modules. Videos and Student Guides are ExternalTool (LTI) links, not direct file downloads; nothing was downloaded.",
+  "modules": [
+    {
+      "position": 1,
+      "name": "Introduction",
+      "items": [
+        {
+          "title": "Pre-Course Survey",
+          "canvas_type": "Quiz",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        },
+        {
+          "title": "Trends in Cloud Computing",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Course Introduction Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Student Guide",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "How to complete lab exercises",
+          "canvas_type": "Page"
+        },
+        {
+          "title": "Course Support",
+          "canvas_type": "Page"
+        },
+        {
+          "title": "General Discussion",
+          "canvas_type": "Discussion"
+        }
+      ]
+    },
+    {
+      "position": 2,
+      "name": "Module 1 - Cloud Concepts Overview",
+      "items": [
+        {
+          "title": "Introduction Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 1 Video - Introduction to cloud computing",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 2 Video - Advantages of the Cloud",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 3 Video - Introduction to AWS",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 4 Video - Moving to the AWS Cloud",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Wrap Up Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Student Guide",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Module 1 Knowledge Check",
+          "canvas_type": "Assignment",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        }
+      ]
+    },
+    {
+      "position": 3,
+      "name": "Module 2 - Cloud Economics and Billing",
+      "items": [
+        {
+          "title": "Introduction Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 1 Video - Fundamentals of Pricing",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 2 Video - Total Cost of Ownership",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 2 Case Study",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 3 Video - AWS Organizations",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 4 Video - AWS Billing",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Console Demonstration - Billing Dashboard",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 5 Video - Technical Support Models",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Wrap Up Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Student Guide",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Module 2 Knowledge Check",
+          "canvas_type": "Assignment",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        }
+      ]
+    },
+    {
+      "position": 4,
+      "name": "Module 3 - AWS Global Infrastructure Overview",
+      "items": [
+        {
+          "title": "Introduction Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 1 Video - AWS Global Infrastructure",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 2 Video - AWS Services",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Wrap Up Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Student Guide",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Module 3 Knowledge Check",
+          "canvas_type": "Assignment",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        }
+      ]
+    },
+    {
+      "position": 5,
+      "name": "Module 4 - AWS Cloud Security",
+      "items": [
+        {
+          "title": "Introduction Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 1 Video - AWS Shared Responsibility Model",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 2 Video - AWS IAM",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Console Demonstration - Identity and Access Management",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 3 Video - Securing a New AWS Account",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 4 Video - Securing Accounts",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 5 Video - Securing Data",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 6 Video - Working to Ensure Compliance",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Wrap Up Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Student Guide",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Lab - 1 Introduction to AWS IAM",
+          "canvas_type": "Assignment",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        },
+        {
+          "title": "Module 4 Knowledge Check",
+          "canvas_type": "Assignment",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        }
+      ]
+    },
+    {
+      "position": 6,
+      "name": "Module 5 - Networking and Content Delivery",
+      "items": [
+        {
+          "title": "Introduction Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 1 Video - Networking Basics",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 2 Video - Amazon VPC",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Console Demonstration - VPC Wizard",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 3 Video - VPC Networking",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 4 Video - VPC Security",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 5 Video - Route 53",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 6 Video - CloudFront",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Wrap Up Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Student Guide",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Lab - 2 Build your VPC and Launch a Web Server",
+          "canvas_type": "Assignment",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        },
+        {
+          "title": "Module 5 Knowledge Check",
+          "canvas_type": "Assignment",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        }
+      ]
+    },
+    {
+      "position": 7,
+      "name": "Module 6 - Compute",
+      "items": [
+        {
+          "title": "Introduction Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 1 Video - Compute Services Overview",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 2 Video - Amazon EC2 Part 1",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 3 Video - Amazon EC2 Part 2",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 4 Video - Amazon EC2 Part 3",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Console Demonstration - EC2",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Lab - 3 Introduction to Amazon EC2",
+          "canvas_type": "Assignment",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        },
+        {
+          "title": "Section 5 Video - Amazon EC2 Cost Optimization",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 6 Video - Container Services",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 7 Video - Introduction to AWS Lambda",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Activity - AWS Lambda",
+          "canvas_type": "Assignment",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        },
+        {
+          "title": "Section 8 Video - Introduction to AWS Elastic Beanstalk",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Activity - AWS Elastic Beanstalk",
+          "canvas_type": "Assignment",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        },
+        {
+          "title": "Wrap Up Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Student Guide",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Module 6 Knowledge Check",
+          "canvas_type": "Assignment",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        }
+      ]
+    },
+    {
+      "position": 8,
+      "name": "Module 7 - Storage",
+      "items": [
+        {
+          "title": "Introduction Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 1 Video - AWS EBS",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Console Demonstrations - EBS",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Lab - 4 Working with EBS",
+          "canvas_type": "Assignment",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        },
+        {
+          "title": "Section 2 Video - AWS S3",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Console Demonstration S3",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 3 Video - AWS EFS",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Console Demonstrations - S3 and EFS",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 4 Video - AWS S3 Glacier",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Console Demonstrations - Glacier",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Wrap Up Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Student Guide",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Module 7 Knowledge Check",
+          "canvas_type": "Assignment",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        }
+      ]
+    },
+    {
+      "position": 9,
+      "name": "Module 8 - Databases",
+      "items": [
+        {
+          "title": "Introduction Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 1 Video - Amazon RDS",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Console Demonstration - RDS",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Lab - 5 Build a Database Server",
+          "canvas_type": "Assignment",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        },
+        {
+          "title": "Section 2 Video - Amazon DynamoDB",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Console Demonstration - DynamoDB",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 3 Video - Amazon Redshift",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 4 Video - Amazon Aurora",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Wrap Up Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Student Guide",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Module 8 Knowledge Check",
+          "canvas_type": "Assignment",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        }
+      ]
+    },
+    {
+      "position": 10,
+      "name": "Module 9 - Cloud Architecture",
+      "items": [
+        {
+          "title": "Introduction Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 1 Video - AWS Well-Architected Framework Design Principles",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 2 Video - Operational Excellence",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 3 Video - Security",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 4 Video - Reliability",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 5 Video - Performance Efficiency",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 6 Video - Cost Optimization",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 7 Video - Reliability",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 8 Video - AWS Trusted Advisor",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Wrap Up Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Student Guide",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Module 9 Knowledge Check",
+          "canvas_type": "Assignment",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        }
+      ]
+    },
+    {
+      "position": 11,
+      "name": "Module 10 - Auto Scaling and Monitoring",
+      "items": [
+        {
+          "title": "Introduction Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 1 Video - Elastic Load Balancing",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 2 Video - Amazon CloudWatch",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Section 3 Video - Amazon EC2 Auto Scaling",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Wrap Up Video",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Lab - 6 Scale & Load Balance your Architecture",
+          "canvas_type": "Assignment",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        },
+        {
+          "title": "Student Guide",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Module 10 Knowledge Check",
+          "canvas_type": "Assignment",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        }
+      ]
+    },
+    {
+      "position": 12,
+      "name": "Course Assessment",
+      "items": [
+        {
+          "title": "Course Assessment",
+          "canvas_type": "Assignment",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        }
+      ]
+    },
+    {
+      "position": 13,
+      "name": "Sandbox",
+      "items": [
+        {
+          "title": "Sandbox Environment",
+          "canvas_type": "ExternalTool"
+        }
+      ]
+    },
+    {
+      "position": 14,
+      "name": "Certification Resources",
+      "items": [
+        {
+          "title": "Certification Resources",
+          "canvas_type": "Page"
+        },
+        {
+          "title": "Certification Discussion",
+          "canvas_type": "Discussion"
+        },
+        {
+          "title": "Practice Questions in AWS Skill Builder",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "AWS Cloud Practitioner CLF-C02 exam alignment guide",
+          "canvas_type": "ExternalTool"
+        }
+      ]
+    },
+    {
+      "position": 15,
+      "name": "Feedback",
+      "items": [
+        {
+          "title": "End of Course Feedback Survey",
+          "canvas_type": "Quiz",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        }
+      ]
+    },
+    {
+      "position": 16,
+      "name": "Badges and Completion Certificates",
+      "items": [
+        {
+          "title": "Claim your badge [Badges EN]",
+          "canvas_type": "Page"
+        }
+      ]
+    },
+    {
+      "position": 17,
+      "name": "AWS T&C Resources",
+      "items": [
+        {
+          "title": "FAQ - Free access to AWS Skill Builder",
+          "canvas_type": "ExternalTool"
+        },
+        {
+          "title": "Activate Your AWS Skill Builder Offer",
+          "canvas_type": "Quiz",
+          "note": "Graded/assessment item (Quiz/Assignment): title only, not opened or attempted."
+        }
+      ]
+    }
+  ]
+}

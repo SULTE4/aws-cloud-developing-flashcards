@@ -1,0 +1,435 @@
+[
+  {
+    "q": "As AWS grows the cost of doing business is reduced and savings are passed back to the customer with lower pricing. What is this optimization called? (Select the best answer)",
+    "options": null,
+    "answer": "Economies of Scale.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "What are advantages of cloud computing for a company moving from a traditional on-premises computing model? (Select two)",
+    "options": null,
+    "answer": [
+      "The company can focus less on infrastructure",
+      "Resources can be created, scaled up, scaled down, or destroyed based on demand"
+    ],
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks). Multi-answer card: the definition side lists the correct answers (numbering stripped)."
+  },
+  {
+    "q": "Which statement described the business perspective of the AWS Cloud Adoption Framework?",
+    "options": null,
+    "answer": "Stakeholders can create a strong business case for cloud computing",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which statement accurately described AWS pricing?",
+    "options": null,
+    "answer": "Volume-based discounts are available when usage increases (on some services)",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "What is the relationship between AWS Regions, Availability Zones, and data centers?",
+    "options": null,
+    "answer": "Each region has locations called Availability Zones. Each Availability Zone has data centers",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which statement about securing data in transit are true? (Select two)",
+    "options": null,
+    "answer": [
+      "TLS certificates can be managed using AWS Certificate Manager (ACM)",
+      "TLS provides encryption of data in transit."
+    ],
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks). Multi-answer card: the definition side lists the correct answers (numbering stripped)."
+  },
+  {
+    "q": "Which configuration represents a value use of security groups in virtual private cloud (VPC)?",
+    "options": null,
+    "answer": "limit outbound traffic from an Amazon EC2 instance in the VPC to a specific database server",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "A company wants complete control over it's server's configurations, operating system (OS), and application software stack. Which AWS compute service should they choose?",
+    "options": null,
+    "answer": "EC2",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "A developer needs temporary block storage for cache data on an Amazon EC2 instance. Which option should they choose?",
+    "options": null,
+    "answer": "Amazon EC2 instance store",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "A developer wants to use Amazon Elastic Block Store (Amazon EBS) for their application. What action should they take?",
+    "options": null,
+    "answer": "Attach the Amazon EBS volume to an Amazon EC2 instance.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which statement about Amazon S3 Glacier security is accurate?",
+    "options": null,
+    "answer": "Access to Amazon s3 Glacier can be managed using AWS Identity and Access Management (IAM) policies",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "A company has an ecommerce site requires storage and retrieval of unstructured customer metadata to support one of its microservices. Which database option is best suited to store this data?",
+    "options": null,
+    "answer": "Amazon DynaomDB",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which scenario is a good fit for Amazon Redshift?",
+    "options": null,
+    "answer": "A company needs a data warehouse to support analytics applications",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which statement reflects a design principle of the Security pillar of the AWS Well-Architected Framework?",
+    "options": null,
+    "answer": "Apply security at all layers of an architecture",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which statement describes high availability",
+    "options": null,
+    "answer": "A system can provide its expected functionality when desired by a user",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "A company application running on two EC2 instances. They want to reduce idle EC2 capacity. The application loads is difficult to forecast, and they want to keep the CPU utilization close to 40 perfect on all instances. which type of Amazon EC2 Auto Scaling should they confgiure",
+    "options": null,
+    "answer": "Dynamic scaling",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which statement accurately describes how Amazon EC2 Auto Scaling is used?",
+    "options": null,
+    "answer": "Amazon EC2 Auto Scaling is useful for dynamic, unpredictable workloads but doesn't add much value for predictable workloads",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which statements about responsibility are accurate based on the AWS shared responsibility model? (Select TWO.)",
+    "options": null,
+    "answer": [
+      "AWS is responsible for the physical security of data centers.",
+      "Customers are responsible for managing their user data."
+    ],
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks). Multi-answer card: the definition side lists the correct answers (numbering stripped)."
+  },
+  {
+    "q": "Which statements about how a company would use AWS Organizations are accurate? (Select TWO.)",
+    "options": null,
+    "answer": [
+      "A company can benefit from volume discounts with consolidated billing",
+      "A company can consolidate and centrally manage multiple AWS accounts."
+    ],
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks). Multi-answer card: the definition side lists the correct answers (numbering stripped)."
+  },
+  {
+    "q": "A company has an application running on two Amazon EC2 instances. They want to reduce idle EC2 capacity. The application load is difficult to forecast, and they want to keep the CPU utilization close to 40 percent on all instances. Which type of Amazon EC2 Auto Scaling should they configure?",
+    "options": null,
+    "answer": "Dynamic scaling",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "How does AWS Trusted Advisor assist a company getting started with AWS?",
+    "options": null,
+    "answer": "AWS Trusted Advisor provides recommendations on configuring your AWS resources.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which statement reflects a design principle of the Reliability pillar of the AWS Well-Architected Framework?",
+    "options": null,
+    "answer": "Replace one large resource with multiple, smaller resources, and distribute requests across these smaller resources",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which scenario best describes a use case for Amazon Aurora?",
+    "options": null,
+    "answer": "A company needs a highly available PostgreSQL-compatible database.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "A company needs to store billions of low-volume daily events that will be used for analytics. Which storage option best fits this use case?",
+    "options": null,
+    "answer": "Amazon S3",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "A company needs to store long-lived data. They need the data to be available Immediately, but access patterns are unpredictable. Which Amazon 53 storage class would be most cost-effective?",
+    "options": null,
+    "answer": "Amazon S3 Intelligent-Tiering",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "A company has a set of big data processing jobs in Amazon Simple Queue Service (Amazon SQS) that need a lot of compute. Which Amazon EC2 instancing pricing model would meet the need at the lowest possible cost?",
+    "options": null,
+    "answer": "Spot Instance",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "What role do security groups play in managing access to Amazon EC2 instances?",
+    "options": null,
+    "answer": "Security groups provide a set of rules to control traffic to or from an instance",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "which statement accurately describes a content delivery network (cdn)?",
+    "options": null,
+    "answer": "A CDN Caches frequently requested files",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which option describes the capability of Amazon virtual private clouds (VPCs)?",
+    "options": null,
+    "answer": "They can span Availability Zones",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which of the following are geographic areas that host two or more Availability Zones? (Select the best answer)",
+    "options": null,
+    "answer": "Regions",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "How does the AWS Billing Dashboard help companies analyze their AWS usage to find potential cost-saving opportunities?",
+    "options": null,
+    "answer": "The billing dashboard shows the status of the month-to-date AWS expenditure and the AWS services that account for the majority of the overall expenditure",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "A cloud practitioner wants to visualize their AWS costs per EC2 instance type for the past 3 months. Which AWS tool or feature should they use?",
+    "options": null,
+    "answer": "AWS Cost Explorer",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "How does cloud computing improve a company's ability to provision resources to meet capacity demands compared to on-premises computing?",
+    "options": null,
+    "answer": "Cloud resources can scale up or down based on demand",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "How do economies of scale help customers moving to cloud computing from on-premises computing?",
+    "options": null,
+    "answer": "Customers can achieve lower variable costs and scale infrastructure beyond what is possible on premises.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which factors are considered in calculating the total cost of ownership (TCO) for the AWS Cloud? (Select TWO.)",
+    "options": null,
+    "answer": [
+      "The amount of storage that needs to be migrated to the cloud",
+      "The number of servers that need to be migrated to the cloud"
+    ],
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks). Multi-answer card: the definition side lists the correct answers (numbering stripped)."
+  },
+  {
+    "q": "Which statement about edge location is true?",
+    "options": null,
+    "answer": "Amazon CloudFront uses edge locations and Regional edge caches to deliver content with lower latency.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "An AWS administrator wants to grant temporary cross-account that allows external users to access specific resources within their own account. Which action would align with the best practice of using temporary sessions?",
+    "options": null,
+    "answer": "Create an AWS Identity and Access Management (IAM) role that can be assumed by external users and grant it permissions to the specific resources.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which statement is an advantage of the platform as a service (PaaS) cloud service model?",
+    "options": null,
+    "answer": "PaaS avoids the need to manage operating systems.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which scenario describes a use case for AWS CloudTrail?",
+    "options": null,
+    "answer": "An account administrator wants the ability to track user activity on their account",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which requirement suggests configuring Amazon 53 with latency?",
+    "options": null,
+    "answer": "A company wants to route traffic to the Region that provides the fastest experience based on performance measurements",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which scenario is a good fit for Amazon Elastic File System (Amazon EFS) storage?",
+    "options": null,
+    "answer": "A company needs to give all Amazon EC2 instances in its virtual private cloud (VPC) read and write access to a network file system (NFS).",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "A company uploads PDF forms to Amazon S3 that must be retained for 1 year. The forms are rarely accessed after 1 week, but they must be available within 1 day when they're requested. What lifecycle policy is the most cost-effective for their needs?",
+    "options": null,
+    "answer": "Move objects from Amazon S3 Standard to Amazon S3 Glacier after 7 days. Delete them after 365 days.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which scenario describes a good use case for Amazon S3 Standard storage?",
+    "options": null,
+    "answer": "Hosting website images",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which option is a company's responsibility when running Amazon RDS?",
+    "options": null,
+    "answer": "Application Optimization",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "How is Elastic Load Balancing (ELB) used with Amazon EC2 Auto Scaling? (Select TWO)",
+    "options": null,
+    "answer": [
+      "ELB performs health checks on new Amazon EC2 instances that are added to the Amazon EC2 Auto Scaling group.",
+      "ELB distributes traffic between Amazon EC2 instances in an Amazon EC2 auto scaling group"
+    ],
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks). Multi-answer card: the definition side lists the correct answers (numbering stripped)."
+  },
+  {
+    "q": "Which IT requirements would lead an architect to choose an infrastructure as a service (IaaS) cloud service model?",
+    "options": null,
+    "answer": "A company wants to maintain the highest level of flexibility over its IT resources",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which statement accurately describes how customers use AWS Support?",
+    "options": null,
+    "answer": "Customers can get AWS Support for both experimental non-production accounts and for business-critical production accounts.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which statement about AWS Region is true?",
+    "options": null,
+    "answer": "Using a Region as close as possible to users can reduce latency",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which statement about Amazon Elastic Block Store (Amazon EBS) is true?",
+    "options": null,
+    "answer": "Amazon EBS volumes persist independently from the Amazon EC2 instances that they're attached to",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which statement about AWS Auto Scaling is true?",
+    "options": null,
+    "answer": "AWS Auto Scaling can be used to automatically scale Amazon DynamoDB tables and indexes",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "For which type of use case is it usually OK to have 2 nines of availability (99%)?",
+    "options": null,
+    "answer": "Batch Processing",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "A company must produce reports of any changes to its Amazon EC2 instance settings. Which AWS service should they use?",
+    "options": null,
+    "answer": "AWS Config",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "A Company needs to run a short script each time a new item is added to an Amazon S3 bucket. Which compute option meets the need with the least amount of resource provisioning",
+    "options": null,
+    "answer": "Create an AWS Lambda function to run the script whenever a new item is added to the bucket",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "A developer is testing a prototype on Amazon EC2. The instances are terminated after testing, but the application requires uninterrupted compute while processing. Which type of Amazon EC2 instance pricing meets the need at the lowest cost?",
+    "options": null,
+    "answer": "On-Demand Instance",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "What is an attribute in an Amazon DynamoDB table?",
+    "options": null,
+    "answer": "A data element that doesn't need to be broken down further",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which scenario should be addressed with a Network Load Balancer:",
+    "options": null,
+    "answer": "A solution must load balance millions of requests per second while maintaining low latency",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which statements about AWS identity and Access Management (IAM) policies are accurate (SELECT TWO)",
+    "options": null,
+    "answer": [
+      "Access control lists (ACLs) are a form of resource-based policies",
+      "Identity-based policies are attached to a user, group, or role"
+    ],
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks). Multi-answer card: the definition side lists the correct answers (numbering stripped)."
+  },
+  {
+    "q": "A network administrator wants to run their ecommerce web application on a virtual private cloud. Which step is part of setting up the VPC (Choose TWO)",
+    "options": null,
+    "answer": [
+      "Create private and public subnets",
+      "Specify the range of IP addresses for the VPC"
+    ],
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks). Multi-answer card: the definition side lists the correct answers (numbering stripped)."
+  },
+  {
+    "q": "Which pieces of information MUST be configured for the Amazon EC2 instances that will be part of an Amazon EC2 Auto Scaling group? (Select TWO).",
+    "options": null,
+    "answer": [
+      "ID of an Amazon Machine Image (AMI)",
+      "Amazon EC2 instance type"
+    ],
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks). Multi-answer card: the definition side lists the correct answers (numbering stripped)."
+  },
+  {
+    "q": "Your company experiences fluctuations in traffic patterns to their e-commerce website when running flash sales. What service can help your company dynamically match the required compute capacity to handle spikes in traffic during flash sales?",
+    "options": null,
+    "answer": "Auto Scaling, you maintain optimal application performance and availability, even when workloads are periodic, unpredictable, or continuously changing",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "What are the benefits of AWS Auto Scaling?",
+    "options": null,
+    "answer": [
+      "Unified scaling",
+      "Automatic resource discovery",
+      "Built-in scaling strategies",
+      "Fully-managed",
+      "Predictive Scaling",
+      "Smart scaling policies"
+    ],
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks). Multi-answer card: the definition side lists the correct answers (numbering stripped)."
+  },
+  {
+    "q": "What type of alert might be provided by AWS Trusted Advisor?",
+    "options": null,
+    "answer": "An alert that multi-factor authentication (MFA) isn't activated on an AWS account",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which statement about AWS storage services is accurate?",
+    "options": null,
+    "answer": "To access an Amazon Elastic File System (Amazon EFS), the file system must be mounted on an Amazon EC2 instance in your virtual private cloud.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which feature of Amazon RDS should a company configure to enable high availability?",
+    "options": null,
+    "answer": "Multi-AZ-deplyoment",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which of the following are features of Amazon Elastic Block Store (Amazon EBS)? (Choose two)",
+    "options": null,
+    "answer": [
+      "Amazon EBS volumes can be encrypted transparently to workloads on the attached instance",
+      "Data stored on Amazon EBS is automatically replicated within an Availability Zone"
+    ],
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks). Multi-answer card: the definition side lists the correct answers (numbering stripped)."
+  },
+  {
+    "q": "A network administrator wants to configure a public subnet and route incoming and outgoing traffic to and from an Amazon EC2 instance in the public subnet to the public internet. Which virtual private cloud (VPC) feature should they use?",
+    "options": null,
+    "answer": "An internet gateway",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  }
+]

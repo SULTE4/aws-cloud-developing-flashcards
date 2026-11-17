@@ -1,0 +1,134 @@
+[
+  {
+    "q": "Which statement is an advantage of the platform as a service (PaaS) cloud service model?",
+    "options": null,
+    "answer": "PaaS avoids the need to manage operating systems.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "How does cloud computing improve a company's ability to provision resources to meet capacity demands compared to on-premises computing?",
+    "options": null,
+    "answer": "Cloud resources can scale up or down based on demand.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which statement accurately describes AWS pricing?",
+    "options": null,
+    "answer": "Volume-based discounts are available when usage increases (on some services).",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which factors are considered in calculating the total cost of ownership (TCO) for the AWS Cloud?",
+    "options": null,
+    "answer": [
+      "The number of servers that need to be migrated to the cloud.",
+      "The amount of storage that needs to be migrated to the cloud."
+    ],
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks). Multi-answer card: the definition side lists the correct answers (numbering stripped)."
+  },
+  {
+    "q": "Which statement about AWS Regions is true?",
+    "options": null,
+    "answer": "Using a Region as close as possible to users can reduce latency.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which statements about responsibility are accurate based on the AWS shared responsibility model?",
+    "options": null,
+    "answer": [
+      "AWS is responsible for the physical security of data centers.",
+      "Customers are responsible for managing their user data."
+    ],
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks). Multi-answer card: the definition side lists the correct answers (numbering stripped)."
+  },
+  {
+    "q": "Which scenario describes a use case for AWS CloudTrail?",
+    "options": null,
+    "answer": "An account administrator wants the ability to track user activity on their account.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "A network administrator wants to run their ecommerce web application on a virtual private cloud (VPC). Which step is part of setting up the VPC?",
+    "options": null,
+    "answer": [
+      "Specify the range of IP addresses for the VPC.",
+      "Create private and public subnets."
+    ],
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks). Multi-answer card: the definition side lists the correct answers (numbering stripped)."
+  },
+  {
+    "q": "Which statement accurately describes a content delivery network (CDN)?",
+    "options": null,
+    "answer": "A CDN caches frequently requested files.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "A company wants complete control over its server's configurations, operating system (OS), and application software stack. Which AWS compute service should they choose?",
+    "options": null,
+    "answer": "Amazon EC2",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "A developer needs temporary block storage for cache data on an Amazon EC2 instance. Which option should they choose?",
+    "options": null,
+    "answer": "Amazon EC2 instance store",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which scenario is a good fit for Amazon Elastic File System (Amazon EFS) storage?",
+    "options": null,
+    "answer": "A company needs to give all Amazon EC2 instances in its virtual private cloud (VPC) read and write access to a network file system (NFS).",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "A company needs to store long-lived data. They need the data to be available immediately, but access patterns are unpredictable. Which Amazon S3 storage class would be most cost-effective?",
+    "options": null,
+    "answer": "Amazon S3 Intelligent-Tiering",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which statement about Amazon S3 Glacier security is accurate?",
+    "options": null,
+    "answer": "Access to Amazon S3 Glacier can be managed using AWS Identity and Access Management (IAM) policies.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which feature of Amazon RDS should a company configure to enable high availability?",
+    "options": null,
+    "answer": "Multi-AZ deployment",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which scenario best describes a use case for Amazon Aurora?",
+    "options": null,
+    "answer": "A company needs a highly available PostgreSQL-compatible database.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which statement reflects a design principle of the Reliability pillar of the AWS Well-Architected Framework?",
+    "options": null,
+    "answer": "Replace one large resource with multiple, smaller resources, and distribute requests across these smaller resources.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which statement describes high availability?",
+    "options": null,
+    "answer": "A system can withstand some measure of degradation without going down.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  },
+  {
+    "q": "Which pieces of information MUST be configured for the Amazon EC2 instances that will be part of an Amazon EC2 Auto Scaling Group?",
+    "options": null,
+    "answer": [
+      "ID of an Amazon Machine Image (AMI)",
+      "Amazon EC2 instance type"
+    ],
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks). Multi-answer card: the definition side lists the correct answers (numbering stripped)."
+  },
+  {
+    "q": "Which statement accurately describes how Amazon EC2 Auto Scaling is used?",
+    "options": null,
+    "answer": "Amazon EC2 Auto Scaling is useful for predictable workloads.",
+    "notes": "Quizlet card is question/answer only; no multiple-choice options shown. Answer is the card's definition side; no bold/highlight marking in the DOM (only plain text and line breaks)."
+  }
+]
