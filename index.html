@@ -1,134 +1,1630 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light dark"><title>AWS Cloud Developing Flashcards</title>
-<style>
-:root{color-scheme:light dark;--paper:#f6f4ed;--surface:#fffdf8;--ink:#182721;--muted:#53645b;--line:#d5dfd4;--green:#164e3b;--accent:#dcf4d9;--orange:#aa4a22;--wrong:#fde6df;--shadow:#19332413}
-@media(prefers-color-scheme:dark){:root{--paper:#121c17;--surface:#1b2921;--ink:#f0f5ed;--muted:#bac8be;--line:#42554a;--green:#b1e5bc;--accent:#263f2d;--orange:#ffb397;--wrong:#522e26;--shadow:#0003}}
-*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:1rem/1.5 'Instrument Sans',system-ui,sans-serif}main{max-width:69rem;margin:auto;padding:2rem clamp(1rem,4vw,3.5rem) 3rem}header{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:end;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--line)}.eyebrow{color:var(--green);font-size:.77rem;font-weight:760;text-transform:uppercase;letter-spacing:.12em;margin:0 0 .5rem}h1,h2{font-family:'DM Serif Text',Georgia,serif;font-weight:400;line-height:1.04;margin:0}h1{font-size:clamp(2.4rem,7vw,4.8rem);letter-spacing:-.045em;max-width:15ch}h2{font-size:clamp(1.65rem,4vw,2.5rem)}p{margin:.65rem 0}.muted,footer{color:var(--muted)}.stats{display:flex;gap:.85rem}.stats span{min-width:4.6rem}.stats b{font-size:1.65rem;color:var(--green);display:block;line-height:1.15}.stats small{display:block;color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(14rem,.9fr) minmax(0,2fr);gap:1rem;align-items:start}.panel{padding:clamp(1rem,3vw,1.6rem);background:var(--surface);border:1px solid var(--line);border-radius:1rem;box-shadow:0 6px 22px var(--shadow)}.row{display:flex;flex-wrap:wrap;gap:.55rem;align-items:center}.control{display:block;margin:.9rem 0}.control>span{display:block;font-size:.9rem;font-weight:700;margin-bottom:.35rem}button,select{font:inherit;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:.55rem;padding:.55rem .8rem}button{cursor:pointer}button:hover:not(:disabled){border-color:var(--green)}button:disabled{cursor:default;opacity:.55}button:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--orange);outline-offset:2px}button.primary{background:var(--green);border-color:var(--green);color:var(--surface);font-weight:720}.control select{width:100%}.meta{display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-bottom:.6rem}.meta p{margin:0}progress{width:100%;height:.5rem;accent-color:var(--green);margin-bottom:1rem}.options{display:grid;gap:.55rem;margin:1rem 0}.option{text-align:left;display:flex;gap:.65rem;width:100%}.option b{min-width:1.5em;color:var(--green)}.option[aria-pressed=true],.option.good{background:var(--accent);border-color:var(--green)}.option.bad{background:var(--wrong);border-color:var(--orange)}.option:disabled{opacity:1}.feedback{margin:1rem 0;padding:.8rem 1rem;background:var(--accent);border-radius:.6rem}.feedback.bad{background:var(--wrong)}.actions{margin-top:1rem}.library{margin-top:1rem}.library details{padding:.75rem 0;border-bottom:1px solid var(--line)}summary{cursor:pointer}footer{margin-top:1.5rem;font-size:.85rem}a{color:var(--green)}[hidden]{display:none!important}
-@media(max-width:720px){header,.layout{grid-template-columns:1fr}header{align-items:start}.stats{margin-top:.3rem}}
-</style></head>
-<body><main><header><div><p class="eyebrow">Cloud development practice</p><h1>AWS Cloud Developing</h1><p class="muted">120 practice cards across Modules 2–13.</p></div><div class="stats" aria-label="Study progress"><span><b id="seen">0</b><small>Practiced</small></span><span><b id="missed">0</b><small>To review</small></span><span><b id="saved">0</b><small>Bookmarked</small></span></div></header>
-<div class="layout"><aside class="panel"><h2>Study setup</h2><label class="control"><span>Module</span><select id="module"><option value="all">All modules</option></select></label><label class="control"><span>Mode</span><select id="mode"><option value="quiz">Multiple choice</option><option value="cards">Flashcards</option></select></label><label class="control"><span>Practice set</span><select id="scope"><option value="all">All questions</option><option value="missed">Missed questions</option><option value="saved">Bookmarks</option><option value="new">Unpracticed</option></select></label><label class="control"><input id="shuffle" type="checkbox" checked> Shuffle cards</label><div class="row"><button id="start" class="primary">Start session</button><button id="library">Browse cards</button></div></aside>
-<section class="panel" aria-label="Study session"><div class="meta"><p id="topic" class="eyebrow">Study session</p><p id="position" class="muted"></p></div><progress id="progress" max="1" value="0" hidden aria-label="Session progress"></progress><h2 id="prompt" tabindex="-1">Pick a module and start</h2><p id="hint" class="muted">Choose multiple choice or reveal answers one card at a time.</p><div id="options" class="options" role="group" aria-label="Answer choices" hidden></div><div id="feedback" class="feedback" role="status" hidden></div><div id="actions" class="row actions" hidden><button class="primary" id="check">Check answer</button><button id="next">Skip</button><button id="again" hidden>Review again</button><button id="know" hidden>Got it</button><button id="bookmark" aria-pressed="false">Bookmark</button></div></section></div>
-<section id="libraryPanel" class="panel library" hidden><h2 tabindex="-1" id="libraryTitle">Question library</h2><div id="libraryList"></div></section><footer>Progress stays in this browser. In a quiz, use 1–4 to pick and Enter to check or advance. <a href="https://docs.aws.amazon.com/">AWS documentation</a> · <a href="https://github.com/SULTE4/aws-cloud-developing-flashcards">Source</a></footer></main>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#FAF7F2" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#15110D" media="(prefers-color-scheme: dark)" />
+<title>AWS Cloud Developing · Flashcards</title>
 <script>
+/* Apply the saved theme before first paint so there is no flash. */
+(function(){try{var t=localStorage.getItem('aws-cd-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" />
+<style>
+:root {
+  --bg: #FAF7F2;
+  --surface: #FFFFFF;
+  --surface-2: #F2EDE3;
+  --surface-3: #EAE3D4;
+
+  --text: #1A1614;
+  --text-2: #6B6258;
+  --text-3: #9A9085;
+
+  --border: #E5DFD2;
+  --border-strong: #CFC6B4;
+
+  --accent: #2E3192;
+  --accent-soft: #E8E9F5;
+  --accent-strong: #1E2173;
+  --accent-ink: #FFFFFF;
+
+  --success: #2D6A4F;
+  --success-soft: #DDEBE0;
+  --success-strong: #1B4B36;
+
+  --error: #B23A48;
+  --error-soft: #F2DDE0;
+  --error-strong: #8B2934;
+
+  --warn: #A86A1A;
+  --warn-soft: #F4E7D2;
+
+  --font-serif: 'Newsreader', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --radius: 8px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+
+  --ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --shadow-sm: 0 1px 2px rgba(28, 22, 18, 0.04);
+  --shadow-md: 0 2px 8px rgba(28, 22, 18, 0.06);
+  --shadow-lg: 0 8px 32px rgba(28, 22, 18, 0.08);
+
+  --header-h: 64px;
+  --bar-bg: rgba(250, 247, 242, 0.88);
+  --backdrop: rgba(28, 22, 18, 0.4);
+  color-scheme: light;
+}
+
+/* Dark palette: explicit toggle wins, otherwise follow the OS */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #15110D;
+  --surface: #1F1A14;
+  --surface-2: #2A241D;
+  --surface-3: #352E25;
+  --text: #F5EFE6;
+  --text-2: #B5AC9F;
+  --text-3: #7F766B;
+  --border: #2E2A24;
+  --border-strong: #423C33;
+  --accent: #A2A8FA;
+  --accent-soft: #1E1F47;
+  --accent-strong: #BFC4FB;
+  --accent-ink: #0E0F2E;
+  --success: #6FD3A0;
+  --success-soft: #1A3325;
+  --success-strong: #92E3B7;
+  --error: #E58792;
+  --error-soft: #3A1D21;
+  --error-strong: #F4A8B0;
+  --bar-bg: rgba(21, 17, 13, 0.88);
+  --backdrop: rgba(0, 0, 0, 0.6);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.3); --shadow-md: 0 2px 8px rgba(0,0,0,.35); --shadow-lg: 0 8px 32px rgba(0,0,0,.5);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #15110D;
+    --surface: #1F1A14;
+    --surface-2: #2A241D;
+    --surface-3: #352E25;
+    --text: #F5EFE6;
+    --text-2: #B5AC9F;
+    --text-3: #7F766B;
+    --border: #2E2A24;
+    --border-strong: #423C33;
+    --accent: #A2A8FA;
+    --accent-soft: #1E1F47;
+    --accent-strong: #BFC4FB;
+    --accent-ink: #0E0F2E;
+    --success: #6FD3A0;
+    --success-soft: #1A3325;
+    --success-strong: #92E3B7;
+    --error: #E58792;
+    --error-soft: #3A1D21;
+    --error-strong: #F4A8B0;
+    --bar-bg: rgba(21, 17, 13, 0.88);
+    --backdrop: rgba(0, 0, 0, 0.6);
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.3); --shadow-md: 0 2px 8px rgba(0,0,0,.35); --shadow-lg: 0 8px 32px rgba(0,0,0,.5);
+  }
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; }
+body {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'ss01' on, 'cv01' on;
+}
+button { font: inherit; color: inherit; background: transparent; border: 0; cursor: pointer; padding: 0; }
+h1, h2, h3, h4 { margin: 0; font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; }
+p { margin: 0; }
+[hidden] { display: none !important; }
+
+/* ============================================================
+   APP SHELL
+   ============================================================ */
+.app { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
+
+.view { display: none; flex: 1; flex-direction: column; }
+.view.is-active { display: flex; animation: viewIn .35s var(--ease-out); }
+
+@keyframes viewIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* ============================================================
+   GENERIC: container, card, buttons, chips, badges
+   ============================================================ */
+.container {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+@media (min-width: 1100px) {
+  .container { max-width: 1180px; }
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  margin-bottom: 14px;
+}
+.card > h2 {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  margin-bottom: 12px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: var(--radius);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: all 0.15s var(--ease);
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:hover { background: var(--surface-2); border-color: var(--border-strong); }
+.btn:active { transform: scale(0.98); }
+.btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+.btn--primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+.btn--ghost { background: transparent; }
+.btn--ghost:hover { background: var(--surface-2); }
+.btn--text {
+  background: transparent;
+  border: 0;
+  color: var(--text-2);
+  height: 32px;
+  padding: 0 8px;
+  font-size: 13px;
+}
+.btn--text:hover { color: var(--text); background: var(--surface-2); }
+.btn--large { height: 52px; padding: 0 24px; font-size: 15px; border-radius: var(--radius); }
+.btn--block { width: 100%; }
+.btn--icon { width: 40px; padding: 0; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-2);
+  transition: all 0.15s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.chip:hover { color: var(--text); border-color: var(--border-strong); }
+.chip.is-active {
+  background: var(--accent-soft);
+  border-color: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.badge--section { background: var(--surface-2); color: var(--text-2); font-family: var(--font-mono); font-size: 10px; }
+.badge--easy { background: var(--success-soft); color: var(--success-strong); }
+.badge--medium { background: var(--warn-soft); color: var(--warn); }
+.badge--hard { background: var(--error-soft); color: var(--error-strong); }
+.badge--type-mc { background: var(--accent-soft); color: var(--accent-strong); }
+.badge--type-tf { background: var(--surface-3); color: var(--text-2); }
+.badge--all { background: var(--accent); color: var(--accent-ink); }
+
+/* SVG icons (inline) */
+.icon { width: 18px; height: 18px; stroke-width: 1.75; }
+
+/* ============================================================
+   SETUP VIEW
+   ============================================================ */
+.view--setup { padding-bottom: 88px; }
+
+.brand {
+  padding: 36px 0 24px;
+  text-align: left;
+}
+.brand h1 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(28px, 5vw, 40px);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--text);
+}
+.brand h1 em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 400;
+}
+.brand p {
+  margin-top: 8px;
+  color: var(--text-2);
+  font-size: 14px;
+}
+
+.setup-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+@media (min-width: 900px) {
+  .setup-grid { grid-template-columns: 1.5fr 1fr; gap: 24px; align-items: start; }
+  .setup-side { position: sticky; top: 24px; }
+}
+
+/* Preset quick-picks (multi-chapter shortcuts) */
+.preset-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.preset-btn {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  transition: all 0.15s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+  min-width: 0;
+}
+.preset-btn:hover { border-color: var(--border-strong); background: var(--surface-2); }
+.preset-btn:active { transform: scale(0.98); }
+.preset-btn.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.preset-btn__title { font-size: 13px; font-weight: 500; color: var(--text); }
+.preset-btn.is-active .preset-btn__title { color: var(--accent-strong); }
+.preset-btn__sub { font-size: 11px; color: var(--text-3); }
+.preset-btn.is-active .preset-btn__sub { color: var(--accent); opacity: 0.85; }
+.preset-btn--exam {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+}
+.preset-btn--exam .preset-btn__title { color: var(--accent-ink); }
+.preset-btn--exam .preset-btn__sub { color: var(--accent-ink); opacity: 0.85; }
+.preset-btn--exam:hover { filter: brightness(1.05); background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%); }
+.preset-btn--exam.is-active { outline: 3px solid var(--accent-soft); outline-offset: 2px; }
+
+/* Chapter picker - grid of multi-select buttons */
+.chapter-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.chapter-toolbar__count { font-size: 12px; color: var(--text-2); }
+.chapter-toolbar__count strong { color: var(--accent); font-weight: 500; }
+.chapter-toolbar__actions { display: flex; gap: 2px; }
+
+.chapter-picker {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 8px;
+}
+.chapter-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  transition: all 0.15s var(--ease);
+  min-height: 64px;
+  -webkit-tap-highlight-color: transparent;
+}
+.chapter-btn:hover { border-color: var(--border-strong); background: var(--surface-2); }
+.chapter-btn:active { transform: scale(0.98); }
+.chapter-btn.is-active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-strong);
+}
+.chapter-btn__check {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent;
+  transition: all 0.15s var(--ease);
+}
+.chapter-btn.is-active .chapter-btn__check {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+.chapter-btn__check .icon { width: 12px; height: 12px; stroke-width: 3; }
+.chapter-btn__num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+  margin-bottom: 2px;
+}
+.chapter-btn.is-active .chapter-btn__num { color: var(--accent); }
+.chapter-btn__title {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+  margin-bottom: 4px;
+  padding-right: 22px;
+}
+.chapter-btn__count {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-top: auto;
+}
+.chapter-btn.is-active .chapter-btn__count { color: var(--accent); opacity: 0.8; }
+
+/* Setup side cards */
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px; }
+.stat {
+  padding: 12px 8px;
+  text-align: center;
+  background: var(--surface-2);
+  border-radius: var(--radius);
+}
+.stat__num {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat__label {
+  font-size: 11px;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Start bar (sticky bottom) */
+.start-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bar-bg);
+  backdrop-filter: saturate(160%) blur(12px);
+  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  border-top: 1px solid var(--border);
+  padding: 12px 0 max(12px, env(safe-area-inset-bottom));
+  z-index: 50;
+}
+.start-bar__inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+@media (min-width: 1100px) { .start-bar__inner { max-width: 1180px; } }
+.start-bar__info { display: flex; flex-direction: column; line-height: 1; }
+.start-bar__count {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text);
+}
+.start-bar__label { font-size: 12px; color: var(--text-2); margin-top: 4px; }
+
+/* ============================================================
+   LIBRARY VIEW
+   ============================================================ */
+.lib-header {
+  padding: 20px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.lib-header__title {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.lib-summary {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+@media (min-width: 600px) { .lib-summary { grid-template-columns: repeat(4, 1fr); } }
+.lib-summary .stat__num { font-size: 26px; }
+
+.lib-filter {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 12px 0;
+  margin-bottom: 8px;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 10;
+  border-bottom: 1px solid var(--border);
+}
+.lib-filter__label {
+  font-size: 12px;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 4px;
+}
+
+.lib-chapter {
+  margin-bottom: 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  overflow: hidden;
+}
+.lib-chapter__head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: background 0.15s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.lib-chapter__head:hover { background: var(--surface-2); }
+.lib-chapter__num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-3);
+  min-width: 28px;
+}
+.lib-chapter__title {
+  flex: 1;
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.lib-chapter__meta {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--text-2);
+}
+.lib-chapter__count {
+  font-family: var(--font-mono);
+  background: var(--surface-2);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+}
+.lib-chapter__chevron { color: var(--text-3); transition: transform 0.25s var(--ease); }
+.lib-chapter.is-open .lib-chapter__chevron { transform: rotate(180deg); }
+
+.lib-chapter__body {
+  display: none;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+.lib-chapter.is-open .lib-chapter__body { display: block; animation: viewIn 0.3s var(--ease-out); }
+
+.lib-q {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.15s var(--ease);
+}
+.lib-q:hover { background: var(--surface); }
+.lib-q:last-child { border-bottom: 0; }
+.lib-q__meta {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.lib-q__num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+}
+.lib-q__text {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.lib-q__answer {
+  font-size: 13px;
+  color: var(--text-2);
+  display: none;
+  border-left: 3px solid var(--success);
+  padding-left: 10px;
+  margin-top: 8px;
+}
+.lib-q.is-revealed .lib-q__answer { display: block; }
+.lib-q__answer strong { color: var(--success-strong); font-weight: 500; }
+.lib-q__hint {
+  font-size: 12px;
+  color: var(--text-3);
+  font-style: italic;
+}
+.lib-q.is-revealed .lib-q__hint { display: none; }
+
+/* ============================================================
+   STUDY VIEW
+   ============================================================ */
+.study-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--bar-bg);
+  backdrop-filter: saturate(160%) blur(12px);
+  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.study-header__title {
+  flex: 1;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-2);
+}
+.btn-leave {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 13px;
+  color: var(--text-2);
+  transition: all 0.15s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-leave:hover { color: var(--error); border-color: var(--error-soft); background: var(--error-soft); }
+.btn-bookmark {
+  width: 34px; height: 34px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-2);
+  transition: all 0.15s var(--ease);
+}
+.btn-bookmark.is-active { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+.btn-bookmark:hover { background: var(--surface-2); }
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px 0;
+}
+.progress__bar {
+  flex: 1;
+  height: 4px;
+  background: var(--surface-2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress__fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.4s var(--ease-out);
+}
+.progress__text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+  min-width: 36px;
+  text-align: right;
+}
+
+/* Study layout */
+.study-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: 16px 20px 32px;
+  max-width: 1180px;
+  width: 100%;
+  margin: 0 auto;
+}
+@media (min-width: 1100px) {
+  .study-body {
+    grid-template-columns: 220px minmax(0, 1fr) 220px;
+  }
+}
+
+.study-sidebar, .study-stats { display: none; }
+@media (min-width: 1100px) {
+  .study-sidebar, .study-stats {
+    display: block;
+    align-self: start;
+    position: sticky;
+    top: 72px;
+  }
+}
+
+.study-sidebar h3, .study-stats h3 {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 8px;
+  padding-left: 8px;
+}
+.sidebar-list { display: flex; flex-direction: column; gap: 1px; }
+.sidebar-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  color: var(--text-2);
+  background: transparent;
+  text-align: left;
+  width: 100%;
+  transition: all 0.12s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.sidebar-item:hover { background: var(--surface-2); color: var(--text); }
+.sidebar-item.is-active { background: var(--accent-soft); color: var(--accent-strong); font-weight: 500; }
+.sidebar-item__count { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); }
+.sidebar-item.is-active .sidebar-item__count { color: var(--accent); }
+
+.study-stats-cards { display: flex; flex-direction: column; gap: 8px; }
+.stats-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+}
+.stats-card__label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+  margin-bottom: 4px;
+}
+.stats-card__value {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1;
+}
+.stats-card--correct .stats-card__value { color: var(--success); }
+.stats-card--wrong .stats-card__value { color: var(--error); }
+
+/* Question card */
+.qcard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  min-width: 0;
+}
+@media (max-width: 600px) {
+  .qcard { padding: 18px; border-radius: var(--radius-lg); }
+}
+.qcard__meta {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.qcard__question {
+  font-family: var(--font-serif);
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text);
+  letter-spacing: -0.005em;
+  margin-bottom: 20px;
+}
+@media (min-width: 720px) {
+  .qcard__question { font-size: 22px; line-height: 1.45; }
+}
+
+.opts {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+@media (min-width: 720px) {
+  .opts--mc { grid-template-columns: 1fr 1fr; gap: 10px; }
+}
+.opts--tf { grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  cursor: pointer;
+  transition: all 0.15s var(--ease);
+  text-align: left;
+  width: 100%;
+  min-height: 52px;
+  -webkit-tap-highlight-color: transparent;
+}
+.opt:hover { border-color: var(--border-strong); background: var(--surface-2); }
+.opt__letter {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-2);
+  transition: all 0.15s var(--ease);
+}
+.opt__text {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--text);
+  padding-top: 3px;
+}
+@media (min-width: 720px) { .opt__text { font-size: 15px; } }
+
+.opt.is-selected {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.opt.is-selected .opt__letter { background: var(--accent); color: var(--accent-ink); }
+
+.opt.is-correct {
+  border-color: var(--success);
+  background: var(--success-soft);
+  animation: pulseCorrect 0.5s var(--ease-out);
+}
+.opt.is-correct .opt__letter { background: var(--success); color: white; }
+.opt.is-correct .opt__text { color: var(--success-strong); }
+
+.opt.is-wrong {
+  border-color: var(--error);
+  background: var(--error-soft);
+  animation: shakeWrong 0.4s var(--ease);
+}
+.opt.is-wrong .opt__letter { background: var(--error); color: white; }
+.opt.is-wrong .opt__text { color: var(--error-strong); }
+
+@keyframes pulseCorrect {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.015); }
+  100% { transform: scale(1); }
+}
+@keyframes shakeWrong {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+.opt:disabled { cursor: default; }
+.opt:disabled:hover { background: var(--surface); border-color: var(--border); }
+.opt.is-correct:disabled, .opt.is-wrong:disabled, .opt.is-selected:disabled { /* keep state */ }
+
+/* TF buttons style */
+.opt--tf {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 20px;
+  min-height: 96px;
+}
+.opt--tf .opt__letter {
+  width: 32px; height: 32px;
+  font-family: var(--font-serif);
+  font-size: 15px;
+}
+.opt--tf .opt__text {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  padding-top: 0;
+}
+
+/* Feedback */
+.qcard__feedback {
+  margin-top: 20px;
+  padding: 14px 16px;
+  background: var(--surface-2);
+  border-radius: var(--radius);
+  border-left: 3px solid var(--text-3);
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+.qcard__feedback.is-correct { border-left-color: var(--success); }
+.qcard__feedback.is-wrong { border-left-color: var(--error); }
+.qcard__feedback strong { color: var(--text); font-weight: 500; }
+
+/* Study actions */
+.study-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+.study-actions .btn { flex: 1; height: 48px; }
+.study-actions .btn--primary { flex: 2; }
+
+/* Tally (mobile) */
+.study-tally {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--text-3);
+  margin-top: 16px;
+  font-family: var(--font-mono);
+}
+.tally-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 5px; vertical-align: middle; }
+.tally-dot--correct { background: var(--success); }
+.tally-dot--wrong { background: var(--error); }
+.tally-dot--skip { background: var(--text-3); }
+@media (min-width: 1100px) { .study-tally { display: none; } }
+
+/* ============================================================
+   COMPLETE VIEW
+   ============================================================ */
+.complete-wrap { padding: 40px 20px 80px; max-width: 600px; margin: 0 auto; text-align: center; }
+.complete-wrap h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 6vw, 44px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.complete-wrap > p { color: var(--text-2); margin-bottom: 32px; }
+.complete-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+@media (min-width: 600px) { .complete-stats { grid-template-columns: repeat(4, 1fr); } }
+.complete-stats .stat { padding: 18px 8px; }
+.complete-stats .stat__num { font-size: 32px; }
+.complete-accuracy {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.accuracy-ring {
+  font-family: var(--font-serif);
+  font-size: 48px;
+  font-weight: 500;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.complete-actions { display: flex; flex-direction: column; gap: 10px; }
+@media (min-width: 600px) { .complete-actions { flex-direction: row; justify-content: center; } }
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal.is-open { display: flex; animation: viewIn 0.2s var(--ease-out); }
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--backdrop);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.modal__panel {
+  position: relative;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  max-width: 380px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  animation: modalIn 0.25s var(--ease-out);
+}
+@keyframes modalIn { from { transform: scale(0.96); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.modal__panel h2 {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+.modal__panel p {
+  color: var(--text-2);
+  font-size: 14px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.modal__actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+.modal__actions .btn { min-width: 100px; }
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+.spacer-h { flex: 1; }
+.text-mono { font-family: var(--font-mono); }
+.text-serif { font-family: var(--font-serif); }
+.text-secondary { color: var(--text-2); }
+.text-tertiary { color: var(--text-3); }
+
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+  .start-bar__inner { padding: 0 16px; }
+  .study-body { padding: 12px 16px 32px; }
+  .brand { padding: 24px 0 16px; }
+}
+
+/* Networks deck additions */
+.qcard__question code, .opt__text code, .lib-q__text code, .lib-q__answer code, .qcard__feedback code {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.88em;
+  padding: 0.08em 0.32em;
+  border-radius: 4px;
+  background: rgba(127, 127, 127, 0.16);
+  overflow-wrap: anywhere;
+}
+.qcard__why, .lib-q__why { margin-top: 8px; font-weight: 400; line-height: 1.5; }
+.deck-link { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.deck-note { margin: 12px 4px 0; font-size: 12px; line-height: 1.5; opacity: 0.68; }
+
+
+/* ---- AWS deck additions ---- */
+.theme-toggle {
+  position: fixed; top: 14px; right: 14px; z-index: 60;
+  width: 40px; height: 40px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--surface); border: 1px solid var(--border); color: var(--text-2);
+  box-shadow: var(--shadow-md); transition: all .15s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.theme-toggle:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); }
+.theme-toggle .icon { width: 18px; height: 18px; }
+.theme-toggle .i-moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .i-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .i-moon { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .i-sun { display: none; }
+  :root:not([data-theme="light"]) .theme-toggle .i-moon { display: block; }
+}
+.study-header { padding-right: 64px; }
+.btn:focus-visible, .chip:focus-visible, .chapter-btn:focus-visible, .preset-btn:focus-visible,
+.opt:focus-visible, .theme-toggle:focus-visible, .btn-leave:focus-visible, .btn-bookmark:focus-visible,
+.lib-chapter__head:focus-visible, .sidebar-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.btn:disabled { opacity: .5; cursor: default; pointer-events: none; }
+.opt .opt__text { overflow-wrap: anywhere; }
+.opts--one { grid-template-columns: 1fr; }
+.qcard__flash { padding: 28px 8px 8px; color: var(--text-3); font-size: 13px; font-style: italic; }
+.study-actions .btn[hidden] { display: none; }
+.lib-q__hint { display: block; }
+.footer-links { margin: 28px 0 0; padding: 0 0 8px; font-size: 12px; color: var(--text-3); }
+.footer-links a { color: inherit; text-underline-offset: 2px; }
+.preset-btn--exam.is-active { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%); border-color: transparent; outline: 3px solid var(--accent-soft); outline-offset: 2px; }
+.preset-btn--exam.is-active .preset-btn__title, .preset-btn--exam.is-active .preset-btn__sub { color: var(--accent-ink); }
+:root.theme-switching *, :root.theme-switching *::before, :root.theme-switching *::after { transition: none !important; animation: none !important; }
+.theme-label { margin-left: 8px; font-size: 12px; color: var(--text-3); }
+@media (max-width: 480px) { .theme-toggle { top: 10px; right: 10px; } }
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark theme" title="Toggle light / dark">
+  <svg class="icon i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  <svg class="icon i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+</button>
+<div class="app" id="app">
+
+  <!-- ============ SETUP VIEW ============ -->
+  <section class="view view--setup is-active" data-view="setup">
+    <div class="container">
+      <header class="brand">
+        <h1>AWS Cloud Developing <em>flashcards</em></h1>
+        <p>AWS Academy Cloud Developing · <span id="brandCount">120</span> practice questions · Modules 2–13</p>
+      </header>
+
+      <div class="setup-grid">
+        <div class="setup-main">
+
+          <section class="card">
+            <h2>Quick picks</h2>
+            <div class="preset-row" id="presetRow"></div>
+          </section>
+
+          <section class="card">
+            <h2>Modules</h2>
+            <div class="chapter-toolbar">
+              <span class="chapter-toolbar__count" id="chapterCount">All modules</span>
+              <span class="chapter-toolbar__actions">
+                <button class="btn btn--text" data-action="select-all-chapters">Select all</button>
+                <button class="btn btn--text" data-action="clear-chapters">Clear</button>
+              </span>
+            </div>
+            <div class="chapter-picker" id="chapterPicker"></div>
+          </section>
+
+          <section class="card">
+            <h2>Format</h2>
+            <div class="chips" id="formatChips">
+              <button class="chip" data-format="quiz">Multiple choice</button>
+              <button class="chip" data-format="cards">Flashcards</button>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>Question set</h2>
+            <div class="chips" id="scopeChips">
+              <button class="chip" data-scope="all">All</button>
+              <button class="chip" data-scope="new">Not seen yet</button>
+              <button class="chip" data-scope="missed">Missed only</button>
+              <button class="chip" data-scope="saved">Bookmarked</button>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>Order</h2>
+            <div class="chips" id="orderChips">
+              <button class="chip" data-order="study">Module order</button>
+              <button class="chip" data-order="shuffle">Shuffle</button>
+            </div>
+          </section>
+        </div>
+
+        <aside class="setup-side">
+          <section class="card">
+            <button class="btn btn--block" data-action="open-library" style="justify-content: flex-start; height: 48px;">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              <span>Browse all questions</span>
+              <span class="spacer-h"></span>
+              <span class="text-tertiary text-mono" style="font-size: 12px;" id="libCount">120</span>
+            </button>
+            <button class="btn btn--block" id="resumeBtn" data-action="resume" style="justify-content: flex-start; height: 48px; margin-top: 8px;" hidden>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span>Resume session</span>
+              <span class="spacer-h"></span>
+              <span class="text-tertiary text-mono" id="resumeProgress" style="font-size: 12px;">0/0</span>
+            </button>
+          </section>
+
+          <section class="card">
+            <h2>Your progress</h2>
+            <div class="stat-row">
+              <div class="stat"><span class="stat__num" id="statSeen">0</span><span class="stat__label">Seen</span></div>
+              <div class="stat"><span class="stat__num" id="statCorrect">0</span><span class="stat__label">Correct</span></div>
+              <div class="stat"><span class="stat__num" id="statWrong">0</span><span class="stat__label">Missed</span></div>
+            </div>
+            <button class="btn btn--text" data-action="clear-progress" style="margin-top: 8px;">Clear all progress</button>
+          </section>
+
+          <p class="deck-note">Practice questions arranged by the AWS Academy Cloud Developing modules. Progress is stored only in this browser. Keys: 1–4 to pick, Enter to check or continue.</p>
+          <p class="footer-links"><a href="https://docs.aws.amazon.com/" target="_blank" rel="noopener">AWS documentation</a> · <a href="https://github.com/SULTE4/aws-cloud-developing-flashcards" target="_blank" rel="noopener">Source</a></p>
+        </aside>
+      </div>
+    </div>
+
+    <div class="start-bar">
+      <div class="start-bar__inner">
+        <div class="start-bar__info">
+          <span class="start-bar__count" id="startCount">120</span>
+          <span class="start-bar__label">questions match</span>
+        </div>
+        <button class="btn btn--primary btn--large" data-action="start" id="startBtn">
+          Start
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LIBRARY VIEW ============ -->
+  <section class="view view--library" data-view="library">
+    <div class="container">
+      <header class="lib-header">
+        <button class="btn btn--ghost btn--icon" data-action="back-to-setup" aria-label="Back">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        </button>
+        <div>
+          <h1 class="lib-header__title">Question library</h1>
+          <p class="text-secondary" style="font-size: 13px;">Every card in the deck. Tap one to reveal the answer.</p>
+        </div>
+      </header>
+      <div class="lib-summary" id="librarySummary"></div>
+      <div class="lib-filter" id="libraryFilter">
+        <span class="lib-filter__label">Filter</span>
+        <button class="chip" data-lib-filter="all">All</button>
+        <button class="chip" data-lib-filter="missed">Missed</button>
+        <button class="chip" data-lib-filter="saved">Bookmarked</button>
+      </div>
+      <div id="libraryChapters"></div>
+    </div>
+  </section>
+
+  <!-- ============ STUDY VIEW ============ -->
+  <section class="view view--study" data-view="study">
+    <header class="study-header">
+      <button class="btn-leave" data-action="confirm-leave">
+        <svg class="icon" style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Leave
+      </button>
+      <div class="study-header__title" id="studyTitle">Question 1</div>
+      <button class="btn-bookmark" data-action="toggle-bookmark" aria-label="Bookmark" aria-pressed="false">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      </button>
+    </header>
+
+    <div class="progress">
+      <div class="progress__bar"><div class="progress__fill" id="progressFill"></div></div>
+      <span class="progress__text" id="progressText">0%</span>
+    </div>
+
+    <div class="study-body">
+      <aside class="study-sidebar">
+        <h3>Module</h3>
+        <div class="sidebar-list" id="studySidebarList"></div>
+      </aside>
+
+      <main>
+        <article class="qcard" id="qcard">
+          <div class="qcard__meta" id="qcardMeta"></div>
+          <h2 class="qcard__question" id="qcardQuestion" tabindex="-1"></h2>
+          <div class="opts opts--mc" id="qcardOptions"></div>
+          <div class="qcard__flash" id="qcardFlash" hidden>Recall the answer, then reveal it.</div>
+          <div class="qcard__feedback" id="qcardFeedback" hidden role="status"></div>
+        </article>
+
+        <div class="study-actions">
+          <button class="btn btn--ghost" data-action="skip" id="skipBtn">Skip</button>
+          <button class="btn btn--primary" data-action="check" id="checkBtn" disabled>Check answer</button>
+          <button class="btn btn--primary" data-action="next" id="nextBtn" hidden>Next ›</button>
+          <button class="btn" data-action="again" id="againBtn" hidden>Review again</button>
+          <button class="btn btn--primary" data-action="know" id="knowBtn" hidden>Got it</button>
+        </div>
+        <div class="study-tally" id="studyTally"></div>
+      </main>
+
+      <aside class="study-stats">
+        <h3>This session</h3>
+        <div class="study-stats-cards" id="studyStatsCards"></div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ COMPLETE VIEW ============ -->
+  <section class="view view--complete" data-view="complete">
+    <div class="complete-wrap">
+      <h1>Session complete</h1>
+      <p id="completeSubtitle">You went through every question. Nicely done.</p>
+      <div class="complete-accuracy">
+        <div class="accuracy-ring" id="completeAccuracy">0%</div>
+        <div class="text-secondary" style="font-size: 13px;">accuracy</div>
+      </div>
+      <div class="complete-stats">
+        <div class="stat"><span class="stat__num" id="completeCorrect">0</span><span class="stat__label">Correct</span></div>
+        <div class="stat"><span class="stat__num" id="completeWrong">0</span><span class="stat__label">Missed</span></div>
+        <div class="stat"><span class="stat__num" id="completeSkipped">0</span><span class="stat__label">Skipped</span></div>
+        <div class="stat"><span class="stat__num" id="completeTotal">0</span><span class="stat__label">Total</span></div>
+      </div>
+      <div class="complete-actions">
+        <button class="btn btn--primary btn--large" data-action="review-wrong" id="reviewWrongBtn">Review missed only</button>
+        <button class="btn btn--large" data-action="back-to-setup">Back to home</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONFIRM MODAL ============ -->
+  <div class="modal" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal__backdrop" data-action="modal-cancel"></div>
+    <div class="modal__panel">
+      <h2 id="modalTitle">Leave session?</h2>
+      <p id="modalBody">Your progress will be saved. You can resume from the home screen.</p>
+      <div class="modal__actions">
+        <button class="btn" data-action="modal-cancel">Stay</button>
+        <button class="btn btn--primary" data-action="modal-confirm" id="modalConfirmBtn">Leave</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
 const cards = [{"id":1,"m":2,"q":"What comes after planning, requirements definition, and design in the course’s SDLC model?","a":"Develop, deploy, and maintain","e":"Development includes building and testing. Deployment releases the system, and maintenance keeps it operating."},{"id":2,"m":2,"q":"During which SDLC phase are new components acquired, installed, and tested?","a":"Develop","e":"These activities turn the design into a working system before release."},{"id":3,"m":2,"q":"Which AWS service manages a new team member’s membership in a permissions group?","a":"AWS Identity and Access Management (IAM)","e":"Permissions attached to an IAM group apply to its IAM users."},{"id":4,"m":2,"q":"How does AWS CloudShell authenticate an AWS CLI command when you open it from the console?","a":"It inherits your signed-in console credentials","e":"CloudShell is pre-authenticated with the console session’s identity."},{"id":5,"m":2,"q":"What three interfaces can developers use to make calls to AWS service APIs?","a":"AWS Management Console, AWS CLI, and AWS SDKs","e":"The console sends API requests through its web UI. The CLI and SDKs expose them to scripts and programs."},{"id":6,"m":2,"q":"Which toolkit lets a team manage AWS services from PowerShell scripts?","a":"AWS Tools for PowerShell","e":"The AWS cmdlets expose service API operations to PowerShell."},{"id":7,"m":2,"q":"Which AWS tool offers generative AI assistance with writing and understanding code?","a":"Amazon Q Developer","e":"It can explain code and generate or suggest changes."},{"id":8,"m":2,"q":"In Boto3, how does the resource interface differ from a service client?","a":"It exposes higher-level objects and collections","e":"Clients map more directly to service API operations. Resources model entities such as S3 buckets."},{"id":9,"m":2,"q":"How can code target a specific Region when creating a Boto3 service client?","a":"Pass the region_name argument","e":"An explicit Region on the client lets a script select the endpoint it needs."},{"id":10,"m":2,"q":"What HTTP status family includes a request for an S3 bucket that does not exist?","a":"4xx client errors","e":"S3 reports NoSuchBucket as HTTP 404."},{"id":11,"m":3,"q":"What kind of analytics storage is a natural fit for Amazon S3?","a":"A data lake","e":"S3 can store large collections of structured and unstructured data as objects."},{"id":12,"m":3,"q":"What is the top-level container for objects in S3?","a":"A bucket","e":"A bucket has a name and contains objects identified by keys."},{"id":13,"m":3,"q":"How should you resolve BucketAlreadyExists for an S3 general purpose bucket in the shared global namespace?","a":"Choose a different bucket name","e":"Names in the shared namespace must be unique within an AWS partition."},{"id":14,"m":3,"q":"Where does the bucket name appear in an S3 static website endpoint?","a":"At the start of the hostname","e":"For example, a us-east-1 website endpoint can look like http://example-bucket.s3-website-us-east-1.amazonaws.com. S3 website endpoints use HTTP. CloudFront can provide HTTPS."},{"id":15,"m":3,"q":"After enabling S3 Versioning, what can you do to stop creating new versions?","a":"Suspend versioning","e":"Suspension leaves existing versions in the bucket. It cannot return the bucket to its original unversioned state."},{"id":16,"m":3,"q":"What is the size limit for an S3 object uploaded with a single PUT request?","a":"5 GB","e":"Use multipart upload when an object exceeds the single-request limit."},{"id":17,"m":3,"q":"What can you attach directly to an S3 bucket to grant a named IAM principal access?","a":"A bucket policy","e":"Include the bucket ARN for bucket actions and the object ARN pattern for object actions."},{"id":18,"m":3,"q":"How can an app share a time-limited download link to a private S3 object?","a":"Generate a presigned URL","e":"The signature authorizes a specific operation until the link or signing credentials expire."},{"id":19,"m":3,"q":"Which mechanism protects S3 object data while it travels over the network?","a":"HTTPS with TLS","e":"Server-side encryption protects object data at rest."},{"id":20,"m":3,"q":"What should you configure when browser JavaScript needs to read assets from a different S3 origin?","a":"Cross-Origin Resource Sharing (CORS)","e":"The asset bucket can return CORS headers allowing the website origin and required methods."},{"id":21,"m":4,"q":"Who configures security groups and protects customer data under the AWS shared responsibility model?","a":"The AWS customer","e":"AWS protects the infrastructure that runs AWS services. Customers configure security for their workloads."},{"id":22,"m":4,"q":"What IAM object expresses which requests are allowed or denied?","a":"An IAM policy","e":"Statements specify actions, resources, and optional conditions."},{"id":23,"m":4,"q":"What is the process of verifying a user’s identity called?","a":"Authentication","e":"Authorization determines which actions the authenticated identity can perform."},{"id":24,"m":4,"q":"What credentials does an IAM user normally present to sign in directly to the AWS console?","a":"A username and password","e":"MFA may also be required. Programmatic access uses other credentials, such as an access key or temporary session credentials."},{"id":25,"m":4,"q":"How should software on an EC2 instance obtain AWS credentials?","a":"Use an IAM role attached via an instance profile","e":"The SDK can retrieve rotating temporary credentials from the instance metadata service."},{"id":26,"m":4,"q":"What is the native document format for an IAM policy?","a":"JSON","e":"Its statements define the effect, actions, resources, and optional conditions."},{"id":27,"m":4,"q":"What kind of policy is attached to an IAM group?","a":"An identity-based policy","e":"It grants or denies permissions to group members. A bucket policy is a resource-based policy."},{"id":28,"m":4,"q":"What principle calls for granting only the permissions a task needs?","a":"Least privilege","e":"Scope the policy’s actions, resources, and conditions to the workload."},{"id":29,"m":4,"q":"What does NotResource do in an otherwise applicable IAM Deny statement?","a":"It excludes the listed resources from that deny","e":"The deny matches other applicable resources. Exclusion from a deny does not grant access by itself."},{"id":30,"m":4,"q":"How does IAM resolve a request that matches both an explicit allow and an explicit deny?","a":"The explicit deny wins","e":"Requests are denied by default unless an applicable policy grants access."},{"id":31,"m":5,"q":"What kind of database is DynamoDB?","a":"A managed key-value and document database","e":"Its storage scales horizontally across partitions."},{"id":32,"m":5,"q":"What does DynamoDB call the named fields that make up an item?","a":"Attributes","e":"Items can have different non-key attributes."},{"id":33,"m":5,"q":"What must be unique in a table with a partition key and a sort key?","a":"The partition-key and sort-key combination","e":"Individual key values can recur, but the pair identifies one item."},{"id":34,"m":5,"q":"How does DynamoDB choose where an item is stored?","a":"It hashes the partition key","e":"The sort key orders items that share a partition key."},{"id":35,"m":5,"q":"What supports querying restaurants by cuisine and rating when the base table is keyed by name and location?","a":"A global secondary index","e":"The index can use cuisine as its partition key and rating as its sort key."},{"id":36,"m":5,"q":"How do you commit several related DynamoDB writes together or reject the whole set?","a":"Use a DynamoDB transaction","e":"TransactWriteItems provides an all-or-nothing write across the requested items."},{"id":37,"m":5,"q":"What lets an app react when a DynamoDB item is inserted or updated?","a":"DynamoDB Streams","e":"A consumer can process the change records and trigger notifications or business logic."},{"id":38,"m":5,"q":"How does DynamoDB keep copies of a global table in sync?","a":"Managed replication between replica Regions","e":"DynamoDB propagates table changes to the configured replicas."},{"id":39,"m":5,"q":"What is the maximum DynamoDB point-in-time recovery window?","a":"35 days","e":"The configured recovery window can be shorter. A restore creates a new table."},{"id":40,"m":5,"q":"What do DynamoDB control-plane APIs manage?","a":"Tables and their configuration","e":"CreateTable and UpdateTable are control operations. PutItem and Query operate on data."},{"id":41,"m":6,"q":"What makes an API RESTful?","a":"It follows Representational State Transfer constraints","e":"Using HTTP alone is insufficient. REST includes constraints such as stateless requests and a uniform interface."},{"id":42,"m":6,"q":"Which API style suits a browser chat that requires the server and client to push messages to each other?","a":"WebSocket API","e":"A persistent connection supports communication in both directions."},{"id":43,"m":6,"q":"Which API Gateway API type is a good fit for a lightweight Lambda proxy without advanced API management features?","a":"HTTP API","e":"HTTP APIs support straightforward Lambda proxy routing."},{"id":44,"m":6,"q":"What integration forwards an API Gateway route to a publicly reachable HTTP backend?","a":"HTTP proxy integration","e":"It forwards the request to the configured HTTP endpoint."},{"id":45,"m":6,"q":"What API Gateway REST API feature can combine given and family names before forwarding a request?","a":"A request mapping template","e":"A mapping template transforms the client payload to the structure the backend expects."},{"id":46,"m":6,"q":"Which parts identify the Region and deployed environment in the default REST API invoke URL?","a":"The Region in the host and the stage in the path","e":"The host also contains the API ID, as in api-id.execute-api.region.amazonaws.com/stage."},{"id":47,"m":6,"q":"Which route should return one catalog product using its ID?","a":"GET /products/{product_id}","e":"The path parameter identifies the product. GET retrieves it."},{"id":48,"m":6,"q":"How can API Gateway stages route to different backend environments?","a":"Use stage variables","e":"An integration can reference a stage-specific variable when selecting its backend."},{"id":49,"m":6,"q":"Which service can apply web application firewall rules to a supported API Gateway REST API stage?","a":"AWS WAF","e":"Managed or custom rules inspect requests for patterns associated with common web attacks."},{"id":50,"m":6,"q":"What does API Gateway’s IntegrationLatency metric measure?","a":"Time spent waiting for the backend integration","e":"The Latency metric additionally includes API Gateway’s own request processing."},{"id":51,"m":7,"q":"When does an on-demand Lambda function run application code?","a":"When it receives an invocation","e":"Lambda manages the execution environment and underlying compute resources."},{"id":52,"m":7,"q":"Can you raise Lambda’s per-function scaling rate by editing the function timeout or reserved concurrency?","a":"No, the scaling rate is a separate constraint","e":"Timeout controls execution time. Reserved concurrency controls allocation and maximum simultaneous executions."},{"id":53,"m":7,"q":"What invocation model does a typical API Gateway Lambda proxy use?","a":"Synchronous invocation","e":"API Gateway waits for the function’s response before responding to the caller."},{"id":54,"m":7,"q":"Which permissions let Lambda poll an SQS queue and write results to DynamoDB?","a":"Permissions in the function execution role","e":"The execution role grants the service and function access needed to read the queue and write table items."},{"id":55,"m":7,"q":"What part of a Lambda function receives the event and starts the application logic?","a":"The handler","e":"Lambda invokes the configured handler and passes event data and runtime context as supported by the runtime."},{"id":56,"m":7,"q":"What Lambda feature can reduce cold-start delays on a frequently invoked alias?","a":"Provisioned concurrency","e":"It initializes execution environments before requests arrive."},{"id":57,"m":7,"q":"Where can asynchronous Lambda invocation settings send records for failed SNS-triggered events?","a":"A configured failure destination","e":"Async retry and event-age settings govern delivery attempts. A failure destination receives invocation records after processing fails."},{"id":58,"m":7,"q":"How can you deploy a ZIP package larger than Lambda’s direct upload limit?","a":"Upload it to S3 and deploy using its bucket and object key","e":"The deployment package must still meet Lambda’s applicable size limits."},{"id":59,"m":7,"q":"What does an ARN ending in function:helloworld:PROD target when PROD is an alias?","a":"The version the PROD alias points to","e":"An alias is a stable name that can be repointed to another published version."},{"id":60,"m":7,"q":"What tracing view helps you spot which service has errors in a distributed application?","a":"The X-Ray service map","e":"Start with the affected service, then inspect individual traces to diagnose the fault."},{"id":61,"m":8,"q":"Why do standard container interfaces improve portability?","a":"They hide application packaging details from the host platform","e":"A compatible runtime can launch the packaged application and its dependencies consistently."},{"id":62,"m":8,"q":"What goes in an application container image while the host supplies the kernel?","a":"Application code and its runtime dependencies","e":"The image packages the code, libraries, and language runtime that it needs."},{"id":63,"m":8,"q":"What is the relationship between a Docker image and a container?","a":"A container is a runnable instance of an image","e":"The image supplies read-only content. The running container gets a writable layer."},{"id":64,"m":8,"q":"How do you start an api-service image in a new Docker container named storefront?","a":"docker run --name storefront api-service","e":"The --name flag assigns the container name. The final argument selects the image."},{"id":65,"m":8,"q":"How does a Dockerfile relate to image layers?","a":"Filesystem-changing instructions create image layers","e":"Metadata-only instructions can set configuration without creating a filesystem layer. Docker can reuse cached layers."},{"id":66,"m":8,"q":"Why do containers fit a microservice architecture?","a":"Each service can package its own runtime and dependencies","e":"Services can use different stacks and deploy independently."},{"id":67,"m":8,"q":"What does a container orchestrator do during deployment?","a":"Schedules and places containers and reconciles their desired state","e":"It can replace unhealthy tasks and scale the workload."},{"id":68,"m":8,"q":"What AWS service orchestrates containerized tasks on EC2 or Fargate?","a":"Amazon ECS","e":"ECS manages task placement and services, and can use compatible external registries as well as ECR."},{"id":69,"m":8,"q":"What Elastic Beanstalk object groups application versions, environments, and related configuration?","a":"An Elastic Beanstalk application","e":"The application is the logical container for those components."},{"id":70,"m":8,"q":"Which Elastic Beanstalk deployment policy sends a fraction of requests to a new version before wider rollout?","a":"Traffic Splitting","e":"It supports a canary deployment by shifting a configured percentage of traffic for an evaluation period."},{"id":71,"m":9,"q":"Before caching data, which freshness requirement should you determine?","a":"How much stale data the application can tolerate","e":"Set expiration and invalidation behavior around what the consumer can safely use."},{"id":72,"m":9,"q":"Which ElastiCache engine family provides read replicas for an in-memory key-value store?","a":"Valkey or Redis OSS","e":"Memcached is also an in-memory cache, but its clusters do not provide Redis-style read replicas."},{"id":73,"m":9,"q":"With cache-aside in front of RDS, what should the application do on a cache miss?","a":"Query the database and populate the cache","e":"Application code owns the lookup, fallback, and cache population."},{"id":74,"m":9,"q":"How can a New York origin serve cacheable files to London users with less latency?","a":"Use a CloudFront distribution","e":"CloudFront can cache responses at edge locations closer to viewers."},{"id":75,"m":9,"q":"How can you increase CloudFront cache hits when many requests differ only by irrelevant parameters?","a":"Exclude unneeded parameters from the cache key","e":"Only include values that change the returned content, so equivalent requests can share an entry."},{"id":76,"m":9,"q":"How does an application connect to a particular ElastiCache node?","a":"Use the node’s endpoint","e":"The endpoint is a DNS name and port. Cluster configurations can also provide other endpoint types."},{"id":77,"m":9,"q":"What normally happens when CloudFront gets a request for an expired cached object?","a":"It checks with the origin for a current response","e":"The origin can return updated content or indicate that the cached version is still current."},{"id":78,"m":9,"q":"What can CloudFront Functions do during a viewer request without contacting an external service?","a":"Redirect the viewer and set a response header","e":"They support lightweight edge logic such as redirects and header manipulation."},{"id":79,"m":9,"q":"What benefit does lazy loading provide when many database rows are rarely used?","a":"It caches data only when requested","e":"This avoids filling the cache with data that consumers may never read."},{"id":80,"m":9,"q":"Where can caching improve performance in an online application with both web assets and database queries?","a":"At both the edge and the application data layer","e":"CloudFront can serve cacheable HTTP content. ElastiCache can reduce repeated database work."},{"id":81,"m":10,"q":"In a pull-based message queue, who initiates a receive?","a":"A consumer polls the queue","e":"The worker retrieves messages when it is ready to process them."},{"id":82,"m":10,"q":"How does a pub/sub topic distribute a message in a basic fan-out design?","a":"It pushes a copy to each subscription","e":"Filters can restrict what each subscription receives."},{"id":83,"m":10,"q":"How can an SQS worker request up to five messages in one call?","a":"Call ReceiveMessage with MaxNumberOfMessages set to 5","e":"That parameter caps the returned batch. SQS can return fewer messages."},{"id":84,"m":10,"q":"What SQS setting helps when work takes longer than the time a received message stays hidden?","a":"Visibility timeout","e":"Set it to cover expected processing, or extend it while the worker is still active."},{"id":85,"m":10,"q":"How can you isolate SQS messages that repeatedly fail to process?","a":"Configure a dead-letter queue and maxReceiveCount","e":"A redrive policy moves a repeatedly received message to the dead-letter queue for investigation."},{"id":86,"m":10,"q":"Why can SQS short polling return an empty response even when a few messages exist?","a":"It samples a subset of servers","e":"Long polling queries more broadly and can wait for messages to arrive."},{"id":87,"m":10,"q":"What SNS resource acts as a communication channel for publishers and subscribers?","a":"An SNS topic","e":"A publisher sends to the topic. SNS delivers to the relevant subscriptions."},{"id":88,"m":10,"q":"How do you make an SNS-triggered Lambda function receive only cancellation events?","a":"Apply a filter policy to its subscription","e":"Filter by a matching message attribute or body property so other event types do not invoke the function."},{"id":89,"m":10,"q":"Which AWS library helps a producer efficiently write batches of log records to Kinesis Data Streams?","a":"Kinesis Producer Library (KPL)","e":"KPL aggregates and submits records. The Kinesis Client Library is for consumers."},{"id":90,"m":10,"q":"How are records distributed inside a Kinesis data stream?","a":"Across shards","e":"A record’s partition key maps it to a shard. Consumers read retained records without deleting them."},{"id":91,"m":11,"q":"What AWS service can coordinate several Lambda functions that have dependencies on one another?","a":"AWS Step Functions","e":"It manages state transitions and can apply retry and error-handling rules."},{"id":92,"m":11,"q":"What does Workflow Studio provide for Step Functions?","a":"A visual editor for state machines","e":"You can build and inspect the workflow graph as well as its definition."},{"id":93,"m":11,"q":"Which Step Functions state runs a unit of work such as invoking Lambda?","a":"Task","e":"A Task state invokes an integration, activity, or other supported work."},{"id":94,"m":11,"q":"Which Step Functions state routes a return request based on the number of days since purchase?","a":"Choice","e":"It evaluates rules and selects the next state."},{"id":95,"m":11,"q":"Which Step Functions state can invoke the same process for every item in an array?","a":"Map","e":"It applies the defined item workflow to the elements in the collection."},{"id":96,"m":11,"q":"Why do Succeed and Fail states lack a Next field?","a":"They terminate the current workflow path","e":"A Succeed state ends successfully. A Fail state signals failure."},{"id":97,"m":11,"q":"Which state can run two independent audit branches and continue after both succeed?","a":"Parallel","e":"It runs branches concurrently and waits for them to finish before transitioning."},{"id":98,"m":11,"q":"How does an external activity worker report approval to the correct Step Functions task?","a":"Pass the task token to SendTaskSuccess","e":"An activity worker can get the token from GetActivityTask. Step Functions uses it to correlate the result."},{"id":99,"m":11,"q":"Which Step Functions workflow type suits short, high-volume IoT processing?","a":"Express Workflow","e":"Express supports high event rates and is designed for executions lasting up to five minutes."},{"id":100,"m":11,"q":"How can an HTTP API start a Step Functions execution?","a":"Integrate API Gateway with the Step Functions StartExecution API","e":"The route can invoke the AWS service API using an authorized integration."},{"id":101,"m":12,"q":"What security property do TLS and its predecessor SSL provide for network traffic?","a":"Encryption in transit","e":"Modern deployments use TLS. Certificates authenticate the server in a typical HTTPS connection."},{"id":102,"m":12,"q":"Which party issues a digital certificate for a website?","a":"A certificate authority","e":"Clients validate the certificate against a chain of trusted issuers."},{"id":103,"m":12,"q":"Which AWS service can provision eligible certificates and manage their renewal?","a":"AWS Certificate Manager (ACM)","e":"ACM manages renewal for eligible public and private certificates, subject to their configuration and validation requirements."},{"id":104,"m":12,"q":"How should an application obtain AWS access without embedding long-lived keys?","a":"Assume an IAM role to obtain temporary credentials","e":"AWS STS supplies an access key, secret key, and session token that expire."},{"id":105,"m":12,"q":"Where does a federated user first authenticate before receiving AWS role credentials?","a":"With an identity provider","e":"AWS can use a federation assertion or token to issue a temporary session."},{"id":106,"m":12,"q":"What log source can show which principal deleted an object from an S3 bucket?","a":"AWS CloudTrail S3 data events","e":"The relevant bucket’s object-level data events must have been recorded when the deletion occurred."},{"id":107,"m":12,"q":"Which Cognito feature provides sign-up and sign-in for application users?","a":"A user pool","e":"It manages a user directory and issues tokens after authentication."},{"id":108,"m":12,"q":"What Cognito user pool feature can detect credentials exposed in known breaches?","a":"Compromised credentials detection","e":"Cognito threat protection can check credentials and respond according to the user pool policy."},{"id":109,"m":12,"q":"What does a Cognito identity pool issue so an app can call AWS APIs?","a":"Temporary, limited AWS credentials","e":"The credentials come from an IAM role associated with the identity."},{"id":110,"m":12,"q":"Who issues the JWT that a client sends to an API Gateway authorizer when using Cognito user pools?","a":"The user pool","e":"The app authenticates with the pool, receives tokens, and presents the appropriate token to the API."},{"id":111,"m":13,"q":"What organizational change does DevOps encourage?","a":"Closer collaboration between development and operations","e":"Shared ownership and feedback help teams deliver changes reliably."},{"id":112,"m":13,"q":"What role does automation play across a DevOps lifecycle?","a":"It supports build, test, deploy, and operations workflows","e":"Repeatable pipelines and monitoring shorten feedback loops and reduce manual work."},{"id":113,"m":13,"q":"Which AWS service coordinates the stages of a software release pipeline?","a":"AWS CodePipeline","e":"It connects source, build, approval, and deploy actions into a release workflow."},{"id":114,"m":13,"q":"How does continuous deployment differ from continuous delivery at the release step?","a":"Deployment automatically releases passing changes to production","e":"Continuous delivery keeps changes ready to release and can include a manual production gate."},{"id":115,"m":13,"q":"Which CloudFormation section declares the AWS infrastructure to provision?","a":"Resources","e":"It describes the resource types and properties managed by a stack."},{"id":116,"m":13,"q":"How can one CloudFormation template create a resource only in production?","a":"Apply a condition to that resource","e":"A condition can evaluate an environment parameter when the stack is created or updated."},{"id":117,"m":13,"q":"What is a CloudFormation stack?","a":"A deployable collection of AWS resources managed as a unit","e":"You can create or update the resources through the stack’s template."},{"id":118,"m":13,"q":"Why is a deployed test environment valuable for a serverless app even if it runs locally?","a":"It exercises real managed-service integrations","e":"Local emulation cannot reproduce every production behavior, permission, or event source."},{"id":119,"m":13,"q":"What AWS SAM section shares common properties across supported serverless resources?","a":"Globals","e":"For example, Globals can define defaults for multiple serverless functions."},{"id":120,"m":13,"q":"What AWS resource is created by an AWS::Serverless::SimpleTable declaration?","a":"An Amazon DynamoDB table","e":"SAM transforms the simplified declaration into a CloudFormation DynamoDB resource."}];
 const titles = ["Developing on AWS","Amazon S3","IAM and shared responsibility","DynamoDB","REST APIs and API Gateway","AWS Lambda","Containers and Elastic Beanstalk","Caching and CloudFront","Messaging and streaming","Step Functions","Secure applications","CI/CD and infrastructure as code"];
-const $ = id => document.getElementById(id);
-const byId = new Map(cards.map(card => [card.id, card]));
-const key = 'aws-cloud-developing-study-v1';
-let stored = {};
-try { stored = JSON.parse(localStorage.getItem(key)) || {}; } catch {}
-const history = stored.history || {};
-const bookmarks = new Set(stored.bookmarks || []);
-let session = stored.session;
-for (const [i,title] of titles.entries()) $('module').add(new Option('Module '+(i+2)+' · '+title,i+2));
-for (const field of ['module','mode','scope']) if (stored.settings?.[field]) $(field).value = stored.settings[field];
-$('shuffle').checked = stored.settings?.shuffle ?? true;
-function save(){
-  const settings = Object.fromEntries(['module','mode','scope'].map(field => [field,$(field).value]));
-  settings.shuffle = $('shuffle').checked;
-  try { localStorage.setItem(key,JSON.stringify({history,bookmarks:[...bookmarks],session,settings})); } catch {}
-  $('seen').textContent = Object.keys(history).length;
-  $('missed').textContent = Object.values(history).filter(value => value === 'missed').length;
-  $('saved').textContent = bookmarks.size;
+
+/* Quick picks mirror the course arc: serverless data path, compute, messaging, then DevOps. */
+const PRESETS = [
+  { id: "all",     label: "Everything",        chapters: [2,3,4,5,6,7,8,9,10,11,12,13], exam: true },
+  { id: "core",    label: "Core services",     chapters: [3,4,5,6,7], exam: true },
+  { id: "start",   label: "Start & storage",   chapters: [2,3,4] },
+  { id: "data",    label: "Data & APIs",       chapters: [5,6,7] },
+  { id: "compute", label: "Containers & cache",chapters: [8,9] },
+  { id: "integr",  label: "Messaging & flows", chapters: [10,11] },
+  { id: "ship",    label: "Security & DevOps", chapters: [12,13] }
+];
+
+const $ = (s, r) => (r || document).querySelector(s);
+const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+const CH = [...new Set(cards.map(c => c.m))].sort((a, b) => a - b);
+const TITLE = ch => titles[ch - 2] || ('Module ' + ch);
+const BY_ID = new Map(cards.map(c => [c.id, c]));
+const BY_CH = {}; for (const c of cards) (BY_CH[c.m] = BY_CH[c.m] || []).push(c);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const shuffle = a => { const x = a.slice(); for (let i = x.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [x[i], x[j]] = [x[j], x[i]]; } return x; };
+
+/* ---------- theme ---------- */
+const THEME_KEY = 'aws-cd-theme';
+function systemDark() { return window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches; }
+function effectiveTheme() { return document.documentElement.getAttribute('data-theme') || (systemDark() ? 'dark' : 'light'); }
+function syncThemeUI() {
+  const t = effectiveTheme(), btn = $('#themeToggle');
+  btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+  btn.title = t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
+  const meta = $$('meta[name="theme-color"]');
+  meta.forEach(m => m.removeAttribute('media'));
+  meta[0].setAttribute('content', t === 'dark' ? '#15110D' : '#FAF7F2');
+  if (meta[1]) meta[1].remove();
 }
-function shuffled(list){
-  const copy=[...list];
-  for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]];}
-  return copy;
-}
-function filtered(){
-  const module=$('module').value, scope=$('scope').value;
-  return cards.filter(card => (module==='all'||card.m===Number(module)) && (scope==='all'||(scope==='new'&&!history[card.id])||(scope==='missed'&&history[card.id]==='missed')||(scope==='saved'&&bookmarks.has(card.id))));
-}
-function current(){return byId.get(session?.ids[session.index]);}
-function distractors(card){
-  const length = card.a.length;
-  return cards.filter(other => other.m===card.m && other.a!==card.a)
-    .sort((a,b)=>Math.abs(a.a.length-length)-Math.abs(b.a.length-length)).slice(0,5);
-}
-function prepare(){
-  const card=current();
-  session.selected=null;
-  session.checked=false;
-  session.revealed=false;
-  session.choices=card&&session.mode==='quiz' ? shuffled([card.a,...shuffled(distractors(card)).slice(0,3).map(other=>other.a)]) : [];
-}
-function render(){
-  const card=current();
-  $('actions').hidden=!card;
-  $('progress').hidden=!card;
-  $('options').hidden=!card||session.mode!=='quiz';
-  $('feedback').hidden=true;
-  $('position').textContent='';
-  if(!card){
-    $('topic').textContent='Study session';
-    $('prompt').textContent=session?(session.ids.length?'Session complete':'No cards match'):'Pick a module and start';
-    $('hint').textContent=session?.ids.length ? session.correct+' correct · '+session.wrong+' to review · '+(session.ids.length-session.correct-session.wrong)+' skipped' : session?'Try a different module or practice set.':'Choose multiple choice or reveal answers one card at a time.';
-    save();return;
-  }
-  $('topic').textContent='Module '+card.m+' · '+titles[card.m-2];
-  $('position').textContent=(session.index+1)+' / '+session.ids.length;
-  $('progress').max=session.ids.length;
-  $('progress').value=session.index+1;
-  $('prompt').textContent=card.q;
-  const quiz=session.mode==='quiz';
-  $('hint').textContent=quiz?'Pick one answer.':'Recall the answer, then reveal it.';
-  $('options').replaceChildren();
-  if(quiz) session.choices.forEach((choice,index)=>{
-    const button=document.createElement('button'), marker=document.createElement('b');
-    button.className='option';button.disabled=session.checked;
-    button.setAttribute('aria-pressed',String(session.selected===index));
-    marker.textContent=(index+1)+'.';button.append(marker,document.createTextNode(choice));
-    if(session.checked && choice===card.a) button.classList.add('good');
-    if(session.checked && session.selected===index && choice!==card.a) button.classList.add('bad');
-    button.addEventListener('click',()=>pick(index));$('options').append(button);
-  });
-  const show=quiz?session.checked:session.revealed;
-  if(show){
-    const correct=session.choices[session.selected]===card.a;
-    $('feedback').hidden=false;$('feedback').classList.toggle('bad',quiz&&!correct);
-    $('feedback').textContent=(quiz?(correct?'Correct. ':'Answer: '):'Answer: ')+card.a+' · '+card.e;
-  }
-  $('check').hidden=show;
-  $('check').textContent=quiz?'Check answer':'Reveal answer';
-  $('check').disabled=quiz&&session.selected===null;
-  $('next').textContent=session.checked?'Next card':'Skip';
-  $('again').hidden=quiz||!show;$('know').hidden=quiz||!show;
-  $('bookmark').textContent=bookmarks.has(card.id)?'Bookmarked':'Bookmark';
-  $('bookmark').setAttribute('aria-pressed',String(bookmarks.has(card.id)));
-  save();
-}
-function pick(index){if(current()&&session.mode==='quiz'&&!session.checked&&session.choices[index]){session.selected=index;render();$('options').children[index].focus();}}
-function record(correct){history[current().id]=correct?'correct':'missed';if(correct) session.correct++;else session.wrong++;}
-function next(){if(!current())return;session.index++;prepare();render();$('prompt').focus();}
-$('start').onclick=()=>{const ids=filtered().map(card=>card.id);session={ids:$('shuffle').checked?shuffled(ids):ids,index:0,mode:$('mode').value,correct:0,wrong:0};prepare();render();$('prompt').focus();};
-$('check').onclick=()=>{
-  const card=current();if(!card)return;
-  if(session.mode==='cards') session.revealed=true;
-  else if(session.selected!==null&&!session.checked){session.checked=true;record(session.choices[session.selected]===card.a);}
-  render();(session.mode==='quiz'?$('next'):$('again')).focus();
-};
-$('next').onclick=next;
-$('again').onclick=()=>{record(false);next();};$('know').onclick=()=>{record(true);next();};
-$('bookmark').onclick=()=>{const id=current().id;if(bookmarks.has(id))bookmarks.delete(id);else bookmarks.add(id);render();};
-function renderLibrary(){
-  const list=$('libraryList');list.replaceChildren();
-  const matches=filtered();
-  if(!matches.length) list.textContent='No cards match these filters.';
-  for(const card of matches){
-    const detail=document.createElement('details'),summary=document.createElement('summary'),answer=document.createElement('p');
-    summary.textContent='Module '+card.m+' · '+card.q;answer.textContent=card.a+' · '+card.e;detail.append(summary,answer);list.append(detail);
-  }
-}
-$('library').onclick=()=>{const panel=$('libraryPanel');panel.hidden=!panel.hidden;$('library').textContent=panel.hidden?'Browse cards':'Hide library';if(!panel.hidden){renderLibrary();$('libraryTitle').focus();}};
-for(const field of ['module','mode','scope','shuffle']) $(field).onchange=()=>{save();if(!$('libraryPanel').hidden) renderLibrary();};
-document.addEventListener('keydown',event=>{
-  if(!current()||event.altKey||event.ctrlKey||event.metaKey||event.repeat||/SELECT|INPUT|TEXTAREA|SUMMARY/.test(event.target.tagName))return;
-  if(/^[1-4]$/.test(event.key)){pick(Number(event.key)-1);return;}
-  if(event.key!=='Enter'||(event.target.tagName==='BUTTON'&&!event.target.classList.contains('option'))) return;
-  if(session.checked){event.preventDefault();next();}
-  else if(!$('check').hidden&&!$('check').disabled){event.preventDefault();$('check').click();}
+$('#themeToggle').addEventListener('click', () => {
+  const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+  const root = document.documentElement;
+  root.classList.add('theme-switching');
+  root.setAttribute('data-theme', next);
+  void root.offsetWidth;
+  requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove('theme-switching')));
+  try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
+  syncThemeUI();
 });
-render();
-</script></body></html>
+syncThemeUI();
+
+/* ---------- state ---------- */
+const KEY = 'aws-cd-study-v2';
+const defaults = () => ({ bookmarks: new Set(), wrong: new Set(), seen: new Set(), correctEver: new Set(),
+  filters: { chapters: CH.slice(), format: 'quiz', scope: 'all', order: 'shuffle' }, session: null });
+function load() {
+  const d = defaults();
+  try {
+    const raw = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (raw) {
+      d.bookmarks = new Set(raw.bookmarks || []); d.wrong = new Set(raw.wrong || []);
+      d.seen = new Set(raw.seen || []); d.correctEver = new Set(raw.correctEver || []);
+      Object.assign(d.filters, raw.filters || {});
+      d.filters.chapters = (d.filters.chapters || []).filter(c => CH.includes(c));
+      d.session = raw.session || null;
+    } else {
+      /* one-time import from the previous version of this app */
+      const old = JSON.parse(localStorage.getItem('aws-cloud-developing-study-v1') || 'null');
+      if (old) {
+        for (const [id, v] of Object.entries(old.history || {})) { d.seen.add(+id); if (v === 'missed') d.wrong.add(+id); else d.correctEver.add(+id); }
+        d.bookmarks = new Set(old.bookmarks || []);
+      }
+    }
+  } catch (e) {}
+  if (d.session && !(d.session.ids || []).every(id => BY_ID.has(id))) d.session = null;
+  return d;
+}
+let state = load();
+function save() {
+  try {
+    localStorage.setItem(KEY, JSON.stringify({ bookmarks: [...state.bookmarks], wrong: [...state.wrong], seen: [...state.seen],
+      correctEver: [...state.correctEver], filters: state.filters, session: state.session }));
+  } catch (e) {}
+}
+
+/* ---------- selection helpers ---------- */
+function pool() {
+  const { chapters, scope } = state.filters;
+  return cards.filter(c => chapters.includes(c.m) &&
+    (scope === 'all' || (scope === 'new' && !state.seen.has(c.id)) || (scope === 'missed' && state.wrong.has(c.id)) || (scope === 'saved' && state.bookmarks.has(c.id))));
+}
+function activePreset() {
+  const sel = state.filters.chapters.slice().sort((a, b) => a - b).join(',');
+  const p = PRESETS.find(p => p.chapters.join(',') === sel);
+  return p ? p.id : null;
+}
+function distractors(card) {
+  const L = card.a.length;
+  const near = cards.filter(o => o.m === card.m && o.a !== card.a)
+    .sort((a, b) => Math.abs(a.a.length - L) - Math.abs(b.a.length - L));
+  const seen = new Set(), out = [];
+  for (const o of shuffle(near.slice(0, 6))) { if (!seen.has(o.a)) { seen.add(o.a); out.push(o.a); } if (out.length === 3) break; }
+  return out;
+}
+const cur = () => state.session ? BY_ID.get(state.session.ids[state.session.idx]) : null;
+
+/* ---------- views ---------- */
+function showView(name) {
+  $$('.view').forEach(v => v.classList.toggle('is-active', v.dataset.view === name));
+  window.scrollTo(0, 0);
+}
+const CHECK = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+function renderSetup() {
+  const f = state.filters, active = activePreset();
+  $('#presetRow').innerHTML = PRESETS.map(p => {
+    const n = cards.filter(c => p.chapters.includes(c.m)).length;
+    return `<button class="preset-btn ${p.exam ? 'preset-btn--exam' : ''} ${active === p.id ? 'is-active' : ''}" data-preset="${p.id}">
+      <span class="preset-btn__title">${esc(p.label)}</span><span class="preset-btn__sub">${p.chapters.length} mod · ${n} Q</span></button>`;
+  }).join('');
+  $('#chapterPicker').innerHTML = CH.map(ch => {
+    const on = f.chapters.includes(ch), n = BY_CH[ch].length;
+    return `<button class="chapter-btn ${on ? 'is-active' : ''}" data-chapter="${ch}" role="checkbox" aria-checked="${on}">
+      <span class="chapter-btn__check">${CHECK}</span><span class="chapter-btn__num">Module ${ch}</span>
+      <span class="chapter-btn__title">${esc(TITLE(ch))}</span><span class="chapter-btn__count">${n} questions</span></button>`;
+  }).join('');
+  const total = pool().length;
+  $('#chapterCount').innerHTML = f.chapters.length === 0 ? 'No modules selected'
+    : f.chapters.length === CH.length ? `<strong>All ${CH.length}</strong> modules · ${total} questions`
+    : `<strong>${f.chapters.length}</strong> of ${CH.length} modules · ${total} questions`;
+  $$('[data-format]').forEach(b => b.classList.toggle('is-active', b.dataset.format === f.format));
+  $$('[data-scope]').forEach(b => b.classList.toggle('is-active', b.dataset.scope === f.scope));
+  $$('[data-order]').forEach(b => b.classList.toggle('is-active', b.dataset.order === f.order));
+  $('#statSeen').textContent = state.seen.size;
+  $('#statCorrect').textContent = state.correctEver.size;
+  $('#statWrong').textContent = state.wrong.size;
+  $('#startCount').textContent = total;
+  $('#startBtn').disabled = total === 0;
+  const s = state.session, resumable = s && s.idx < s.ids.length;
+  $('#resumeBtn').hidden = !resumable;
+  if (resumable) $('#resumeProgress').textContent = `${s.idx} / ${s.ids.length}`;
+  $('#brandCount').textContent = cards.length; $('#libCount').textContent = cards.length;
+}
+
+let libFilter = 'all';
+function renderLibrary() {
+  const keep = c => libFilter === 'all' || (libFilter === 'missed' && state.wrong.has(c.id)) || (libFilter === 'saved' && state.bookmarks.has(c.id));
+  $('#librarySummary').innerHTML = [['Total', cards.length], ['Modules', CH.length], ['Missed', state.wrong.size], ['Bookmarked', state.bookmarks.size]]
+    .map(([l, n]) => `<div class="stat"><span class="stat__num">${n}</span><span class="stat__label">${l}</span></div>`).join('');
+  $$('[data-lib-filter]').forEach(b => b.classList.toggle('is-active', b.dataset.libFilter === libFilter));
+  const open = new Set($$('.lib-chapter.is-open').map(e => e.dataset.ch));
+  $('#libraryChapters').innerHTML = CH.map(ch => {
+    const list = BY_CH[ch].filter(keep); if (!list.length) return '';
+    return `<div class="lib-chapter ${open.has(String(ch)) ? 'is-open' : ''}" data-ch="${ch}">
+      <button class="lib-chapter__head" data-action="toggle-chapter" aria-expanded="${open.has(String(ch))}">
+        <span class="lib-chapter__num">M${ch}</span><span class="lib-chapter__title">${esc(TITLE(ch))}</span>
+        <span class="lib-chapter__meta"><span class="lib-chapter__count">${list.length}</span></span>
+        <svg class="icon lib-chapter__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button><div class="lib-chapter__body">${list.map(c => `
+        <div class="lib-q" data-action="reveal-answer" tabindex="0" role="button">
+          <div class="lib-q__meta"><span class="lib-q__num">Q${c.id}</span>${state.wrong.has(c.id) ? '<span class="badge badge--hard">Missed</span>' : ''}${state.bookmarks.has(c.id) ? '<span class="badge badge--type-mc">Bookmarked</span>' : ''}</div>
+          <div class="lib-q__text">${esc(c.q)}</div><div class="lib-q__hint">Tap to reveal answer</div>
+          <div class="lib-q__answer"><strong>${esc(c.a)}</strong><div class="qcard__why">${esc(c.e)}</div></div></div>`).join('')}</div></div>`;
+  }).join('') || '<p class="text-secondary" style="padding:24px 4px">No cards match this filter.</p>';
+}
+
+/* ---------- study ---------- */
+function startSession(ids) {
+  state.session = { ids, idx: 0, format: state.filters.format, correct: 0, wrong: 0, skipped: 0, selected: null, checked: false, choices: [] };
+  prepare(); save(); showView('study'); renderStudy();
+}
+function prepare() {
+  const s = state.session, c = cur(); if (!c) return;
+  s.selected = null; s.checked = false;
+  s.choices = s.format === 'quiz' ? shuffle([c.a, ...distractors(c)]) : [];
+}
+function renderStudy() {
+  const s = state.session, c = cur(); if (!c) return;
+  const quiz = s.format === 'quiz', total = s.ids.length;
+  $('#studyTitle').innerHTML = `<span class="text-mono">M${c.m}</span> · <span style="opacity:.7">${esc(TITLE(c.m))}</span> · <span class="text-mono">${s.idx + 1}/${total}</span>`;
+  const pct = Math.round(s.idx / total * 100);
+  $('#progressFill').style.width = pct + '%'; $('#progressText').textContent = pct + '%';
+  const bm = $('[data-action="toggle-bookmark"]'); bm.classList.toggle('is-active', state.bookmarks.has(c.id)); bm.setAttribute('aria-pressed', String(state.bookmarks.has(c.id)));
+  $('#qcardMeta').innerHTML = `<span class="badge badge--type-mc">${quiz ? 'Multiple choice' : 'Flashcard'}</span><span class="badge badge--section">Q${c.id}</span>`;
+  $('#qcardQuestion').textContent = c.q;
+  const opts = $('#qcardOptions'); opts.hidden = !quiz;
+  opts.innerHTML = quiz ? s.choices.map((t, i) => `<button class="opt" data-opt="${i}"><span class="opt__letter">${'ABCD'[i]}</span><span class="opt__text">${esc(t)}</span></button>`).join('') : '';
+  $('#qcardFlash').hidden = quiz; $('#qcardFeedback').hidden = true; $('#qcardFeedback').className = 'qcard__feedback';
+  setActions('answering'); renderTally(); renderSidebar(); renderStats();
+  $('#checkBtn').textContent = quiz ? 'Check answer' : 'Reveal answer';
+  $('#checkBtn').disabled = quiz;
+}
+function setActions(phase) {
+  const quiz = state.session.format === 'quiz', done = phase === 'done';
+  $('#skipBtn').hidden = done; $('#checkBtn').hidden = done;
+  $('#nextBtn').hidden = !(done && quiz);
+  $('#againBtn').hidden = !(done && !quiz); $('#knowBtn').hidden = !(done && !quiz);
+}
+function select(i) {
+  const s = state.session; if (!s || s.format !== 'quiz' || s.checked || !s.choices[i]) return;
+  s.selected = i; $$('.opt').forEach((o, k) => o.classList.toggle('is-selected', k === i)); $('#checkBtn').disabled = false;
+}
+function record(ok) {
+  const c = cur(), s = state.session;
+  state.seen.add(c.id);
+  if (ok) { s.correct++; state.correctEver.add(c.id); state.wrong.delete(c.id); } else { s.wrong++; state.wrong.add(c.id); }
+}
+function check() {
+  const s = state.session, c = cur(); if (!c || s.checked) return;
+  const quiz = s.format === 'quiz', fb = $('#qcardFeedback');
+  if (quiz) {
+    if (s.selected === null) return;
+    const ok = s.choices[s.selected] === c.a; s.checked = true; record(ok);
+    $$('.opt').forEach((o, i) => { o.disabled = true; o.classList.remove('is-selected');
+      if (s.choices[i] === c.a) o.classList.add('is-correct'); else if (i === s.selected) o.classList.add('is-wrong'); });
+    fb.className = 'qcard__feedback ' + (ok ? 'is-correct' : 'is-wrong');
+    fb.innerHTML = `<strong>${ok ? '✓ Correct' : '✗ Not quite'}</strong> – Answer: <strong>${esc(c.a)}</strong><div class="qcard__why">${esc(c.e)}</div>`;
+    setActions('done'); $('#nextBtn').focus();
+  } else {
+    s.checked = true; fb.className = 'qcard__feedback';
+    fb.innerHTML = `Answer: <strong>${esc(c.a)}</strong><div class="qcard__why">${esc(c.e)}</div>`;
+    setActions('done'); $('#knowBtn').focus();
+  }
+  fb.hidden = false; save(); renderTally(); renderStats();
+}
+function skip() { const s = state.session, c = cur(); if (!c) return; s.skipped++; state.seen.add(c.id); next(); }
+function next() { const s = state.session; s.idx++; if (s.idx >= s.ids.length) return finish(); prepare(); save(); renderStudy(); $('#qcardQuestion').focus({ preventScroll: true }); }
+function finish() {
+  const s = state.session, answered = s.correct + s.wrong;
+  $('#completeCorrect').textContent = s.correct; $('#completeWrong').textContent = s.wrong;
+  $('#completeSkipped').textContent = s.skipped; $('#completeTotal').textContent = s.ids.length;
+  $('#completeAccuracy').textContent = (answered ? Math.round(s.correct / answered * 100) : 0) + '%';
+  $('#reviewWrongBtn').hidden = state.wrong.size === 0;
+  state.session = null; save(); showView('complete');
+}
+function renderTally() {
+  const s = state.session;
+  $('#studyTally').innerHTML = `<span><span class="tally-dot tally-dot--correct"></span>${s.correct} correct</span><span><span class="tally-dot tally-dot--wrong"></span>${s.wrong} missed</span><span><span class="tally-dot tally-dot--skip"></span>${s.skipped} skipped</span>`;
+}
+function renderSidebar() {
+  const c = cur();
+  $('#studySidebarList').innerHTML = CH.map(ch => `<div class="sidebar-item ${c.m === ch ? 'is-active' : ''}"><span><span class="text-mono text-tertiary" style="font-size:10px">${ch}</span> ${esc(TITLE(ch))}</span><span class="sidebar-item__count">${BY_CH[ch].length}</span></div>`).join('');
+}
+function renderStats() {
+  const s = state.session, a = s.correct + s.wrong;
+  $('#studyStatsCards').innerHTML = `<div class="stats-card stats-card--correct"><div class="stats-card__label">Correct</div><div class="stats-card__value">${s.correct}</div></div>
+    <div class="stats-card stats-card--wrong"><div class="stats-card__label">Missed</div><div class="stats-card__value">${s.wrong}</div></div>
+    <div class="stats-card"><div class="stats-card__label">Accuracy</div><div class="stats-card__value">${a ? Math.round(s.correct / a * 100) : 0}%</div></div>
+    <div class="stats-card"><div class="stats-card__label">Bookmarked</div><div class="stats-card__value">${state.bookmarks.size}</div></div>`;
+}
+
+/* ---------- modal ---------- */
+let pending = null, lastFocus = null;
+function confirmBox(o) { lastFocus = document.activeElement; $('#modalTitle').textContent = o.title; $('#modalBody').textContent = o.body; $('#modalConfirmBtn').textContent = o.ok; pending = o.run; $('#confirmModal').classList.add('is-open'); $('#modalConfirmBtn').focus(); }
+function closeBox() { $('#confirmModal').classList.remove('is-open'); pending = null; if (lastFocus && lastFocus.focus) lastFocus.focus(); }
+
+/* ---------- events ---------- */
+function goHome() { showView('setup'); renderSetup(); }
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-action],[data-chapter],[data-preset],[data-format],[data-scope],[data-order],[data-lib-filter],[data-opt]');
+  if (!t) return;
+  const d = t.dataset, f = state.filters;
+  if (d.chapter !== undefined) { const ch = +d.chapter, i = f.chapters.indexOf(ch); if (i >= 0) f.chapters.splice(i, 1); else f.chapters.push(ch); save(); return renderSetup(); }
+  if (d.preset) { f.chapters = PRESETS.find(p => p.id === d.preset).chapters.slice(); save(); return renderSetup(); }
+  if (d.format) { f.format = d.format; save(); return renderSetup(); }
+  if (d.scope) { f.scope = d.scope; save(); return renderSetup(); }
+  if (d.order) { f.order = d.order; save(); return renderSetup(); }
+  if (d.libFilter) { libFilter = d.libFilter; return renderLibrary(); }
+  if (d.opt !== undefined) return select(+d.opt);
+  switch (d.action) {
+    case 'select-all-chapters': f.chapters = CH.slice(); save(); return renderSetup();
+    case 'clear-chapters': f.chapters = []; save(); return renderSetup();
+    case 'start': { const list = pool(); if (!list.length) return; const ids = (f.order === 'shuffle' ? shuffle(list) : list.slice().sort((a, b) => a.m - b.m || a.id - b.id)).map(c => c.id); return startSession(ids); }
+    case 'resume': { const s = state.session; if (!s) return; if (s.checked) s.idx++; if (s.idx >= s.ids.length) return finish(); prepare(); save(); showView('study'); return renderStudy(); }
+    case 'open-library': renderLibrary(); return showView('library');
+    case 'back-to-setup': return goHome();
+    case 'toggle-chapter': { const el = t.closest('.lib-chapter'); el.classList.toggle('is-open'); t.setAttribute('aria-expanded', el.classList.contains('is-open')); return; }
+    case 'reveal-answer': return t.classList.toggle('is-revealed');
+    case 'check': return check();
+    case 'skip': return skip();
+    case 'next': return next();
+    case 'again': record(false); return next();
+    case 'know': record(true); return next();
+    case 'toggle-bookmark': { const c = cur(); if (!c) return; state.bookmarks.has(c.id) ? state.bookmarks.delete(c.id) : state.bookmarks.add(c.id); save(); t.classList.toggle('is-active', state.bookmarks.has(c.id)); t.setAttribute('aria-pressed', String(state.bookmarks.has(c.id))); return renderStats(); }
+    case 'confirm-leave': return confirmBox({ title: 'Leave session?', body: 'Your progress is saved. You can resume from the home screen.', ok: 'Leave', run: goHome });
+    case 'clear-progress': return confirmBox({ title: 'Clear all progress?', body: 'This removes seen, missed and bookmarked cards and any session in progress. It cannot be undone.', ok: 'Clear', run: () => { const th = state.filters; state = defaults(); state.filters = th; save(); renderSetup(); } });
+    case 'review-wrong': { const ids = cards.filter(c => state.wrong.has(c.id)).map(c => c.id); if (!ids.length) return goHome(); return startSession(shuffle(ids)); }
+    case 'modal-cancel': return closeBox();
+    case 'modal-confirm': { const run = pending; closeBox(); if (run) run(); return; }
+  }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && $('#confirmModal').classList.contains('is-open')) return closeBox();
+  if (e.key === 'Enter' && e.target.classList && e.target.classList.contains('lib-q')) { e.preventDefault(); return e.target.classList.toggle('is-revealed'); }
+  if (e.altKey || e.ctrlKey || e.metaKey || e.repeat || !state.session || !$('.view--study').classList.contains('is-active') || $('#confirmModal').classList.contains('is-open')) return;
+  if (/^[1-4]$/.test(e.key)) return select(+e.key - 1);
+  if (e.key === 'Enter' && !(e.target.tagName === 'BUTTON' && !e.target.classList.contains('opt'))) {
+    e.preventDefault();
+    const s = state.session;
+    if (s.checked) { if (s.format === 'quiz') next(); return; }
+    if (!$('#checkBtn').disabled) check();
+  }
+});
+
+/* ---------- boot ---------- */
+renderSetup();
+</script>
+</body>
+</html>
